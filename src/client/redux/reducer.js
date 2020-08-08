@@ -1,7 +1,11 @@
 import {
   RECEIVE_GENRES,
+  RECEIVE_RECOMMENDATIONS,
   REQUEST_GENRES,
-  SET_GENRE_FILTER, SET_FEATURE_FILTER, REQUEST_RECOMMENDATIONS, RECEIVE_RECOMMENDATIONS,
+  REQUEST_RECOMMENDATIONS,
+  SET_FEATURE_FILTER,
+  SET_GENRE_FILTER,
+  SET_X_AXIS, SET_Y_AXIS,
 } from './actions';
 
 export const initialState = {
@@ -10,7 +14,9 @@ export const initialState = {
   recommendations: null,
   isFetchingRecommendations: null,
   genreFilter: null,
-  featureFilters: {}
+  featureFilters: {},
+  xAxis: null,
+  yAxis: null
 };
 
 export default function (state = initialState, {type, payload}) {
@@ -54,6 +60,18 @@ export default function (state = initialState, {type, payload}) {
           ...state.featureFilters,
           ...payload,
         }
+      }
+    }
+    case SET_X_AXIS: {
+      return {
+        ...state,
+        xAxis: payload
+      }
+    }
+    case SET_Y_AXIS: {
+      return {
+        ...state,
+        yAxis: payload
       }
     }
     default:

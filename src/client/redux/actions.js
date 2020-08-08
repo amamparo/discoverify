@@ -21,3 +21,9 @@ export const setFeatureFilter = (key, min, max) => ({
     [`max_${key}`]: max
   }
 });
+
+export const SET_X_AXIS = 'SET_X_AXIS';
+export const setXAxis = xAxis => ({type: SET_X_AXIS, payload: xAxis});
+
+export const SET_Y_AXIS = 'SET_Y_AXIS';
+export const setYAxis = yAxis => ({type: SET_Y_AXIS, payload: yAxis});

@@ -1,34 +1,32 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {getRecommendations} from '../../redux/actionCreators';
+import ApexChart from './ApexChart';
+import AxisSelects from './AxisSelects/AxisSelects';
 
-const Graph = ({featureFilters, genreFilter, getRecommendations, recommendations}) => {
-  useEffect(() => {
-    if (genreFilter) {
-      getRecommendations(genreFilter, featureFilters);
-    }
-  }, [genreFilter, featureFilters]);
+const Graph = ({genreFilter, xAxis, yAxis}) => {
   return (<div className={'card p-4'}>
-    {JSON.stringify(recommendations, null, 2)}
+    {
+      genreFilter && xAxis && yAxis ? <ApexChart/> : <span>{'Select a genre, x-axis, and y-axis to begin'}</span>
+    }
+    <div className={'row'}>
+      <div className={'col-sm-8 offset-sm-2'}>
+        <AxisSelects/>
+      </div>
+    </div>
   </div>);
 };
 
 Graph.propTypes = {
-  featureFilters: PropTypes.object,
   genreFilter: PropTypes.string,
-  getRecommendations: PropTypes.func,
-  recommendations: PropTypes.arrayOf(PropTypes.object)
+  xAxis: PropTypes.string,
+  yAxis: PropTypes.string
 };
 
-const mapStateToProps = ({featureFilters, genreFilter, recommendations}) => ({
+const mapStateToProps = ({genreFilter, xAxis, yAxis}) => ({
   genreFilter,
-  featureFilters,
-  recommendations
+  xAxis,
+  yAxis
 });
 
-const mapDispatchToProps = dispatch => ({
-  getRecommendations: (genre, featureFilters) => getRecommendations(genre, featureFilters)(dispatch)
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Graph);
+export default connect(mapStateToProps)(Graph);

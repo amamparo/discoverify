@@ -18,15 +18,13 @@ app.get('/genres', async (req, res) => {
 app.get('/recommendations/:genre', async (req, res) => {
   const {genre} = req.params;
   const {token, featureFilters} = req.query;
-  const parsedFeatureFilters = featureFilters ? JSON.parse(featureFilters) : null
-  console.error('=============> parsedFeatureFilters: ', parsedFeatureFilters);
   const tracks = (await getSpotifyData({
     endpoint: '/v1/recommendations',
     params: {
       limit: 100,
       market: 'US',
       seed_genres: genre,
-      ...parsedFeatureFilters
+      ...JSON.parse(featureFilters || {})
     },
     token
   })).tracks;
