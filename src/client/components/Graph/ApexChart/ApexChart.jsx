@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import ReactApexChart from 'react-apexcharts';
 import {getRecommendations} from '../../../redux/actionCreators';
-import getOptions from './getOptions';
+import getChartOptions from './getChartOptions';
+import './ApexChart.scss';
 
 const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendations, xAxis, yAxis}) => {
   useEffect(() => {
@@ -18,23 +19,30 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
   
   useEffect(() => {
     setChartWidth(chartRef.current ? chartRef.current.clientWidth : chartWidth);
-  }, [chartRef])
+  }, [chartRef]);
   
-  const getTooltip = ({seriesIndex, dataPointIndex}) => {
+  const getTooltip = ({dataPointIndex, w: {config: {series}}}) => {
+    const track = series[0].data[dataPointIndex];
+    const {album} = track;
     return `
-      <div>
-        <div>${seriesIndex}</div>
-        <div>${dataPointIndex}</div>
+      <div class="track-tooltip">
+        <div class="album-art">
+          <img alt="${album.name}" src="${album.images.find(i => i.height === 64).url}"/>
+        </div>
+        <div class="details">
+          <div><strong>${track.name}</strong></div>
+          <div>${track.artists.map(a => a.name).join(', ')}</div>
+        </div>
       </div>
     `;
   }
   
   const allFiltersSet = genreFilter && featureFilters && xAxis && yAxis;
   const noDataMessage = allFiltersSet ? '' : 'Select a genre, x-axis, and y-axis to begin';
-  const data = allFiltersSet ? recommendations.map(({features}) => [features[xAxis], features[yAxis]]) : [];
-  return (<div ref={chartRef}>
+  const data = allFiltersSet ? recommendations.map(r => ({...r, x: r.features[xAxis], y: r.features[yAxis]})) : [];
+  return (<div id={'chart'} ref={chartRef}>
     <ReactApexChart type={'scatter'}
-                    options={getOptions({getTooltip, noDataMessage})}
+                    options={getChartOptions({getTooltip, noDataMessage})}
                     height={chartWidth}
                     series={[{data}]}/>
   </div>);

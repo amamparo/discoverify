@@ -1,0 +1,33 @@
+#chart {
+  circle {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .track-tooltip {
+    display: flex;
+    .album-art {
+      position: relative;
+      height: 64px;
+      width: 64px;
+      img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    .details {
+      align-self: center;
+      padding: 0 1rem;
+      max-width: 250px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      > div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}
