@@ -1,23 +1,31 @@
-import {RECEIVE_RECOMMENDATIONS, RECEIVE_TOP_ARTISTS, REQUEST_RECOMMENDATIONS, REQUEST_TOP_ARTISTS} from './actions';
+import {
+  RECEIVE_GENRES,
+  REQUEST_GENRES,
+  SET_GENRE_FILTER, SET_FEATURE_FILTER, REQUEST_RECOMMENDATIONS, RECEIVE_RECOMMENDATIONS,
+} from './actions';
 
 export const initialState = {
-  topArtists: null,
-  recommendations: null
+  genres: null,
+  isFetchingGenres: null,
+  recommendations: null,
+  isFetchingRecommendations: null,
+  genreFilter: null,
+  featureFilters: {}
 };
 
 export default function (state = initialState, {type, payload}) {
   switch (type) {
-    case REQUEST_TOP_ARTISTS: {
+    case REQUEST_GENRES: {
       return {
         ...state,
-        isFetchingTopArtists: true
+        isFetchingGenres: true
       }
     }
-    case RECEIVE_TOP_ARTISTS: {
+    case RECEIVE_GENRES: {
       return {
         ...state,
-        topArtists: state.isFetchingTopArtists ? payload : state.topArtists,
-        isFetchingTopArtists: false
+        genres: state.isFetchingGenres ? payload : state.genres,
+        isFetchingGenres: false
       }
     }
     case REQUEST_RECOMMENDATIONS: {
@@ -31,6 +39,21 @@ export default function (state = initialState, {type, payload}) {
         ...state,
         recommendations: state.isFetchingRecommendations ? payload : state.recommendations,
         isFetchingRecommendations: false
+      }
+    }
+    case SET_GENRE_FILTER: {
+      return {
+        ...state,
+        genreFilter: payload
+      }
+    }
+    case SET_FEATURE_FILTER: {
+      return {
+        ...state,
+        featureFilters: {
+          ...state.featureFilters,
+          ...payload,
+        }
       }
     }
     default:

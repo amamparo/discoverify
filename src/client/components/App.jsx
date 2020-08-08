@@ -1,33 +1,25 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import requireAuthorization from './Authorize/requireAuthorization';
 import './App.scss';
-import {connect} from 'react-redux';
-import {getTopArtists} from '../redux/actionCreators';
-import PropTypes from 'prop-types';
+import Filters from './Filters/Filters';
+import Graph from './Graph/Graph';
 
-const App = ({getTopArtists, topArtists}) => {
-  useEffect(() => {
-    getTopArtists();
-  }, [getTopArtists]);
+const App = () => {
   return (
     <div className={'container'}>
-      {'Hello World'}
+      <div className={'row'}>
+        <div className={'col-sm-3'}>
+          <Filters/>
+        </div>
+        <div className={'col-sm-9'}>
+          <Graph/>
+        </div>
+      </div>
     </div>
   );
 };
 
-App.propTypes = {
-  getTopArtists: PropTypes.func,
-  topArtists: PropTypes.arrayOf(PropTypes.object),
-};
+App.propTypes = {};
 
 
-const mapStateToProps = ({topArtists}) => ({
-  topArtists
-});
-
-const mapDispatchToProps = dispatch => ({
-  getTopArtists: () => getTopArtists(dispatch),
-});
-
-export default requireAuthorization(connect(mapStateToProps, mapDispatchToProps)(App));
+export default requireAuthorization(App);

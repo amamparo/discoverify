@@ -7,11 +7,9 @@ import Routes from './routes';
 import configureStore from './redux/configureStore';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={configureStore()}>
-      <Routes/>
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={configureStore()}>
+    <Routes/>
+  </Provider>,
   document.getElementById('root')
 );
 

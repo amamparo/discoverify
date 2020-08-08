@@ -1,0 +1,24 @@
+@import '../bootstrap/bootstrap';
+
+#root {
+  > .container, > .container-fluid {
+    height: 100vh;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    input, select {
+      &:focus {
+        border-color: $gray-400;
+        box-shadow: 0 0 0.25rem 0.1rem rgba($gray-300, 0.8);
+      }
+    }
+
+    select:hover {
+      cursor: pointer;
+    }
+
+    .card {
+      box-shadow: 0 0 5px 1px $gray-300;
+    }
+  }
+}

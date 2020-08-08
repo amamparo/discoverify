@@ -1,0 +1,7 @@
+.feature-filter {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}

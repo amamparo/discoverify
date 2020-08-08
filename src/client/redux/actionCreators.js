@@ -1,15 +1,20 @@
-import {receiveTopArtists, requestTopArtists} from './actions';
-import getSpotifyData from '../getSpotifyData';
+import {receiveGenres, receiveRecommendations, requestGenres, requestRecommendations} from './actions';
+import getApiData from '../getApiData';
 
 
-export const getTopArtists = dispatch => getSpotifyData({
+export const getGenres = dispatch => getApiData({
   dispatch,
-  requestAction: requestTopArtists,
-  receiveAction: receiveTopArtists,
-  endpoint: '/v1/me/top/artists',
+  requestAction: requestGenres,
+  receiveAction: receiveGenres,
+  endpoint: '/genres'
+});
+
+export const getRecommendations = (genre, featureFilters) => dispatch => getApiData({
+  dispatch,
+  requestAction: requestRecommendations,
+  receiveAction: receiveRecommendations,
+  endpoint: `/recommendations/${genre}`,
   params: {
-    limit: 50,
-    time_range: 'medium_term'
-  },
-  formatResponse: ({items}) => items
+    featureFilters: JSON.stringify(featureFilters)
+  }
 });
