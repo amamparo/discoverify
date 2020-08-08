@@ -11,7 +11,7 @@ const App = () => {
         <div className={'col-sm-3 offset-sm-1'}>
           <Filters/>
         </div>
-        <div className={'col-sm-7'}>
+        <div className={'col-sm-6'}>
           <Graph/>
         </div>
       </div>
