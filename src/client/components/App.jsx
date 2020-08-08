@@ -8,10 +8,10 @@ const App = () => {
   return (
     <div className={'container'}>
       <div className={'row'}>
-        <div className={'col-sm-3'}>
+        <div className={'col-sm-3 offset-sm-1'}>
           <Filters/>
         </div>
-        <div className={'col-sm-9'}>
+        <div className={'col-sm-7'}>
           <Graph/>
         </div>
       </div>

@@ -1,32 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import ApexChart from './ApexChart';
+import ApexChart from './ApexChart/ApexChart';
 import AxisSelects from './AxisSelects/AxisSelects';
 
-const Graph = ({genreFilter, xAxis, yAxis}) => {
+const Graph = () => {
   return (<div className={'card p-4'}>
-    {
-      genreFilter && xAxis && yAxis ? <ApexChart/> : <span>{'Select a genre, x-axis, and y-axis to begin'}</span>
-    }
+    <ApexChart/>
     <div className={'row'}>
-      <div className={'col-sm-8 offset-sm-2'}>
+      <div className={'col-sm-10 offset-sm-1'}>
         <AxisSelects/>
       </div>
     </div>
   </div>);
 };
 
-Graph.propTypes = {
-  genreFilter: PropTypes.string,
-  xAxis: PropTypes.string,
-  yAxis: PropTypes.string
-};
+Graph.propTypes = {};
 
-const mapStateToProps = ({genreFilter, xAxis, yAxis}) => ({
-  genreFilter,
-  xAxis,
-  yAxis
-});
-
-export default connect(mapStateToProps)(Graph);
+export default Graph;

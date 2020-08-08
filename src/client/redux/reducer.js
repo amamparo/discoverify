@@ -11,7 +11,7 @@ import {
 export const initialState = {
   genres: null,
   isFetchingGenres: null,
-  recommendations: null,
+  recommendations: [],
   isFetchingRecommendations: null,
   genreFilter: null,
   featureFilters: {},
