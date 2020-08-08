@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import ReactApexChart from 'react-apexcharts';
+import _ from 'lodash';
 import {getRecommendations} from '../../../redux/actionCreators';
 import getChartOptions from './getChartOptions';
 import './ApexChart.scss';
@@ -23,11 +24,11 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
   
   const getTooltip = ({dataPointIndex, w: {config: {series}}}) => {
     const track = series[0].data[dataPointIndex];
-    const {album} = track;
+    const {album: {images}} = track;
     return `
       <div class="track-tooltip">
         <div class="album-art">
-          <img alt="${album.name}" src="${album.images.find(i => i.height === 64).url}"/>
+          <img src="${images.length ? _.orderBy(images, ['height'])[0].url : ''}"/>
         </div>
         <div class="details">
           <div><strong>${track.name}</strong></div>
