@@ -7,12 +7,8 @@ import PropTypes from 'prop-types';
 
 const App = ({getTopArtists, topArtists}) => {
   useEffect(() => {
-    if (!topArtists) {
-      getTopArtists();
-    } else {
-    
-    }
-  }, [getTopArtists, topArtists]);
+    getTopArtists();
+  }, [getTopArtists]);
   return (
     <div className={'container'}>
       {'Hello World'}
