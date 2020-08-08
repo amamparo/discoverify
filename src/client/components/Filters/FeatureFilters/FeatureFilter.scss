@@ -4,4 +4,26 @@
   &:last-of-type {
     margin-bottom: 0;
   }
+  .rc-slider-track {
+    background-color: #1DB954;
+  }
+  .rc-slider-handle {
+    border: solid 2px #1DB954;
+    background-color: #1DB954;
+  }
+  .rc-slider-handle-dragging.rc-slider-handle-dragging.rc-slider-handle-dragging {
+    border-color: #1DB954;
+  }
+  .rc-slider-handle:focus {
+  }
+  .rc-slider-handle-click-focused:focus {
+    border-color: #1DB954;
+  }
+  .rc-slider-handle:hover {
+    border-color: #1DB954;
+  }
+  .rc-slider-handle:active {
+    border-color: #1DB954;
+    box-shadow: 0 0 5px #1DB954;
+  }
 }
