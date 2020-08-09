@@ -5,7 +5,6 @@ import {setNowPlaying} from '../../../redux/actions';
 import {connect} from 'react-redux';
 
 const Audio = ({nowPlaying, setNowPlaying}) => {
-  console.error('=============> nowPlaying: ', nowPlaying);
   return nowPlaying ? (
     <Sound url={nowPlaying.preview_url} playStatus={Sound.status.PLAYING}
            onFinishedPlaying={() => setNowPlaying(null)}/>

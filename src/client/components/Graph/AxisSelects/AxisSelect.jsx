@@ -1,16 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './AxisSelect.scss';
-
-const axisCategories = {
-  acousticness: 'Acousticness',
-  danceability: 'Danceability',
-  energy: 'Energy',
-  instrumentalness: 'Instrumentalness',
-  liveness: 'Liveness',
-  speechiness: 'Speechiness',
-  valence: 'Happiness'
-};
+import {axisCategories} from './axisCategories';
 
 const AxisSelect = ({label, setAxis, current}) => {
   return (
