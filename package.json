@@ -1,5 +1,5 @@
 {
-  "name": "discover-fm",
+  "name": "discoverify",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
@@ -94,6 +94,18 @@
     "webpack-manifest-plugin": "2.2.0",
     "workbox-webpack-plugin": "4.3.1",
     "zip-folder": "^1.0.0"
+  },
+  "devDependencies": {
+    "@aws-cdk/aws-ecr-assets": "^1.56.0",
+    "@aws-cdk/aws-ecs": "^1.56.0",
+    "@aws-cdk/aws-ecs-patterns": "^1.56.0",
+    "@aws-cdk/aws-elasticbeanstalk": "^1.56.0",
+    "@aws-cdk/aws-iam": "^1.56.0",
+    "@aws-cdk/aws-route53": "^1.56.0",
+    "@aws-cdk/aws-route53-targets": "^1.56.0",
+    "@aws-cdk/aws-s3": "^1.56.0",
+    "@aws-cdk/aws-s3-deployment": "^1.56.0",
+    "@aws-cdk/core": "^1.56.0"
   },
   "scripts": {
     "clean": "rimraf .build",

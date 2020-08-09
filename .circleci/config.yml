@@ -1,0 +1,73 @@
+version: 2.0
+
+container_config: &container_config
+  working_directory: ~/workspace
+  docker:
+    - image: node:12.18.3
+
+jobs:
+  install:
+    <<: *container_config
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: Install NPM depedencies
+          command: npm i
+      - persist_to_workspace:
+          root: ~/workspace
+          paths: .
+  test:
+    <<: *container_config
+    steps:
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: Test
+          command: npm run test
+  build:
+    <<: *container_config
+    steps:
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: Build
+          command: API_URL=http://discoverify-api.aaronmamparo.com npm run build
+      - persist_to_workspace:
+          root: ~/workspace
+          paths: .
+  deploy:
+    <<: *container_config
+    steps:
+      - attach_workspace:
+          at: ~/workspace
+      - setup_remote_docker
+      - run:
+          name: Create Elastic Beanstalk source bundle
+          command: npm run bundle
+      - run:
+          name: Install AWS-CDK
+          command: npm i -g aws-cdk
+      - run:
+          name: Deploy
+          command: |
+            AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+            AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+            AWS_DEFAULT_REGION="us-east-1" \
+            cdk deploy --require-approval never --verbose
+workflows:
+  version: 2
+  checkout-deploy:
+    jobs:
+      - install:
+          filters:
+            branches:
+              only:
+                - master
+      - build:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - build
