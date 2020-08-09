@@ -53,7 +53,18 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
   
   return (<div id={'chart'} ref={chartRef}>
     <ReactApexChart type={'scatter'}
-                    options={getChartOptions({getTooltip, noDataMessage, onMouseEnter, onMouseLeave})}
+                    options={
+                      getChartOptions({
+                        getTooltip,
+                        noDataMessage,
+                        onMouseEnter,
+                        onMouseLeave,
+                        xMin: _.min(data.map(({x}) => x)),
+                        xMax: _.max(data.map(({x}) => x)),
+                        yMin: _.min(data.map(({y}) => y)),
+                        yMax: _.max(data.map(({y}) => y))
+                      })
+                    }
                     height={chartWidth}
                     series={[{data}]}/>
     <Audio/>

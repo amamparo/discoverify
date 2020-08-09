@@ -1,6 +1,6 @@
 import roundTo from 'round-to';
 
-export default ({getTooltip, noDataMessage, onMouseEnter, onMouseLeave}) => ({
+export default ({getTooltip, noDataMessage, onMouseEnter, onMouseLeave, xMin = 0, xMax = 1, yMin = 0, yMax = 1}) => ({
   chart: {
     zoom: {
       enabled: true,
@@ -61,8 +61,8 @@ export default ({getTooltip, noDataMessage, onMouseEnter, onMouseLeave}) => ({
     tickPlacement: 'between',
     crosshairs: {show: false},
     tooltip: {enabled: false},
-    min: 0,
-    max: 1
+    min: xMin,
+    max: xMax
   },
   yaxis: {
     type: 'numeric',
@@ -73,7 +73,7 @@ export default ({getTooltip, noDataMessage, onMouseEnter, onMouseLeave}) => ({
     },
     tickAmount: 5,
     tickPlacement: 'between',
-    min: 0,
-    max: 1
+    min: yMin,
+    max: yMax
   }
 });
