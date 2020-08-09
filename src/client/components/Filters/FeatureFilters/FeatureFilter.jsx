@@ -12,6 +12,9 @@ const FeatureFilters = ({featureName, featureKey, setFilter, featureFilters}) =>
   const minKey = `min_${featureKey}`;
   const maxKey = `max_${featureKey}`;
   const [minMax, setMinMax] = useState([featureFilters[minKey] || defaultMin, featureFilters[maxKey] || defaultMax]);
+  useEffect(() => {
+    setMinMax([featureFilters[minKey] || defaultMin, featureFilters[maxKey] || defaultMax])
+  }, [featureFilters]);
   return (
     <div className={'feature-filter'}>
       <div className={'feature-label'}>

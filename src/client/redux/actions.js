@@ -22,6 +22,9 @@ export const setFeatureFilter = (key, min, max) => ({
   }
 });
 
+export const RESET_FEATURE_FILTERS = 'RESET_FEATURE_FILTERS';
+export const resetFeatureFilters = () => ({type: RESET_FEATURE_FILTERS});
+
 export const SET_X_AXIS = 'SET_X_AXIS';
 export const setXAxis = xAxis => ({type: SET_X_AXIS, payload: xAxis});
 

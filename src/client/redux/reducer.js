@@ -2,7 +2,7 @@ import {
   RECEIVE_GENRES,
   RECEIVE_RECOMMENDATIONS,
   REQUEST_GENRES,
-  REQUEST_RECOMMENDATIONS,
+  REQUEST_RECOMMENDATIONS, RESET_FEATURE_FILTERS,
   SET_FEATURE_FILTER,
   SET_GENRE_FILTER, SET_NOW_PLAYING,
   SET_X_AXIS, SET_Y_AXIS,
@@ -61,6 +61,12 @@ export default function (state = initialState, {type, payload}) {
           ...state.featureFilters,
           ...payload,
         }
+      }
+    }
+    case RESET_FEATURE_FILTERS: {
+      return {
+        ...state,
+        featureFilters: {}
       }
     }
     case SET_X_AXIS: {
