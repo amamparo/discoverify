@@ -1,6 +1,6 @@
 import roundTo from 'round-to';
 
-export default ({getTooltip, noDataMessage, onMouseEnter, onMouseLeave, xMin = 0, xMax = 1, yMin = 0, yMax = 1}) => ({
+export default ({getTooltip, noDataMessage, onMouseEnter, onMouseLeave, onMarkerClick, xMin = 0, xMax = 1, yMin = 0, yMax = 1}) => ({
   chart: {
     zoom: {
       enabled: true,
@@ -22,7 +22,8 @@ export default ({getTooltip, noDataMessage, onMouseEnter, onMouseLeave, xMin = 0
     },
     events: {
       dataPointMouseEnter: onMouseEnter,
-      dataPointMouseLeave: onMouseLeave
+      dataPointMouseLeave: onMouseLeave,
+      markerClick: onMarkerClick
     }
   },
   markers: {

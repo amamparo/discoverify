@@ -50,6 +50,11 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
   const onMouseLeave = () => {
     setNowPlaying(null);
   }
+  const onMarkerClick = (event, ctx, {dataPointIndex, w: {config: {series}}}) => {
+    const track = series[0].data[dataPointIndex];
+    window.open(track.external_urls.spotify, 'spotify');
+    setNowPlaying(null);
+  }
   
   return (<div id={'chart'} ref={chartRef}>
     <ReactApexChart type={'scatter'}
@@ -59,6 +64,7 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
                         noDataMessage,
                         onMouseEnter,
                         onMouseLeave,
+                        onMarkerClick,
                         xMin: _.min(data.map(({x}) => x)),
                         xMax: _.max(data.map(({x}) => x)),
                         yMin: _.min(data.map(({y}) => y)),
