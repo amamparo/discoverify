@@ -8,7 +8,7 @@ const Filters = () => {
       <div className={'card p-3'}>
         <GenreFilter/>
       </div>
-      <div className={'card p-3 mt-4'}>
+      <div className={'card p-4 mt-4'}>
         <FeatureFilters/>
       </div>
     </>
