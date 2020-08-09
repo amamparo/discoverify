@@ -50,7 +50,7 @@ jobs:
           name: Install AWS-CDK
           command: npm i -g aws-cdk
       - run:
-          name: Deploy
+          name: Deploy stack
           command: |
             AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
             AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
