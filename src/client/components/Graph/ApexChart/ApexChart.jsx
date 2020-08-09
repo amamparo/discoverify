@@ -70,7 +70,7 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
                         yMax: _.max(data.map(({y}) => y))
                       })
                     }
-                    height={Math.max(chartWidth, 400)}
+                    height={Math.max(chartWidth, 350)}
                     series={data && data.length > 0 ? [{data}] : []}/>
     <Audio/>
   </div>);
