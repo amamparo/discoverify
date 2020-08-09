@@ -29,7 +29,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.API_URL': JSON.stringify(process.env.API_URL)
+      'process.env.API_URL': JSON.stringify(process.env.API_URL),
+      'process.env.RELEASE_NUMBER': JSON.stringify(Date.now())
     }),
     new CopyPlugin({
       patterns: [
