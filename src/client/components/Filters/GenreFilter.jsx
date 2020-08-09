@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {getGenres} from '../../redux/actionCreators';
 import {connect} from 'react-redux';
 import {setGenreFilter} from '../../redux/actions';
+import {capitalize} from 'lodash';
 
 const GenreFilter = ({genreFilter, genres, getGenres, setGenreFilter}) => {
   useEffect(() => {
@@ -18,7 +19,11 @@ const GenreFilter = ({genreFilter, genres, getGenres, setGenreFilter}) => {
                 onChange={({target: {value}}) => setGenreFilter(value)}>
           <option disabled value={''}>{'--------'}</option>
           {
-            genres && genres.map(genre => <option key={genre} value={genre}>{genre}</option>)
+            genres && genres.map(genre => (
+              <option key={genre} value={genre}>
+                {genre.split('-').map(capitalize).join('-')}
+              </option>
+            ))
           }
         </select>
       </div>
