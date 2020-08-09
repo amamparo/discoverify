@@ -8,8 +8,9 @@ const app = express();
 
 app.use(cors());
 
+const token = process.env.SPOTIFY_REFRESH_TOKEN;
+
 app.get('/genres', async (req, res) => {
-  const {token} = req.query;
   return res.json((await getSpotifyData({
     endpoint: '/v1/recommendations/available-genre-seeds',
     token
@@ -18,7 +19,7 @@ app.get('/genres', async (req, res) => {
 
 app.get('/recommendations/:genre', async (req, res) => {
   const {genre} = req.params;
-  const {token, featureFilters} = req.query;
+  const {featureFilters} = req.query;
   const tracks = (await getSpotifyData({
     endpoint: '/v1/recommendations',
     params: {
