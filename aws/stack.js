@@ -56,6 +56,7 @@ class MyStack extends Stack {
       bucketName: frontendDomain,
       publicReadAccess: true,
       websiteIndexDocument: 'index.html',
+      websiteErrorDocument: 'index.html',
       removalPolicy: RemovalPolicy.DESTROY,
       cors: [
         {
