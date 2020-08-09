@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import AxisSelect from './AxisSelect';
 import {setXAxis, setYAxis} from '../../../redux/actions';
 import {suggestAxes} from '../../../redux/actionCreators';
-import SuggestAxesButton from './SuggestAxesButton';
+import SuggestAxesButton from './UseOptimalAxesButton';
 
 const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggestAxes}) => {
   useEffect(() => {
@@ -26,7 +26,7 @@ const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggest
         }
       </div>
       <div className={'row pt-4'}>
-        <div className={'col-sm-4 offset-sm-4'}>
+        <div className={'col-sm-6 offset-sm-3'}>
           <SuggestAxesButton/>
         </div>
       </div>
