@@ -19,5 +19,13 @@
     .card {
       box-shadow: 0 0 5px 1px $gray-300;
     }
+
+    button {
+      background-color: #1DB954;
+      border-color: #1DB954;
+      &.disabled:hover {
+        cursor: default;
+      }
+    }
   }
 }

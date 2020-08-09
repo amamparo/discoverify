@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import AxisSelect from './AxisSelect';
 import {setXAxis, setYAxis} from '../../../redux/actions';
 import {suggestAxes} from '../../../redux/actionCreators';
+import SuggestAxesButton from './SuggestAxesButton';
 
 const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggestAxes}) => {
   useEffect(() => {
@@ -12,17 +13,24 @@ const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggest
     }
   }, [recommendations]);
   return (
-    <div className={'row'}>
-      {
-        [['Y Axis', setYAxis, yAxis], ['X Axis', setXAxis, xAxis]].map(([label, setAxis, axis]) => {
-          return (
-            <div key={label} className={'col-sm-6'}>
-              <AxisSelect label={label} setAxis={setAxis} current={axis}/>
-            </div>
-          );
-        })
-      }
-    </div>
+    <>
+      <div className={'row'}>
+        {
+          [['Y Axis', setYAxis, yAxis], ['X Axis', setXAxis, xAxis]].map(([label, setAxis, axis]) => {
+            return (
+              <div key={label} className={'col-sm-6'}>
+                <AxisSelect label={label} setAxis={setAxis} current={axis}/>
+              </div>
+            );
+          })
+        }
+      </div>
+      <div className={'row pt-4'}>
+        <div className={'col-sm-6 offset-sm-3'}>
+          <SuggestAxesButton/>
+        </div>
+      </div>
+    </>
   );
 };
 
