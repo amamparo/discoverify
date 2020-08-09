@@ -24,14 +24,6 @@ class MyStack extends Stack {
       ]
     });
     const application = new CfnApplication(this, 'Application', {applicationName: this.stackName});
-    const applicationVersion = new CfnApplicationVersion(this, 'ApplicationVersion', {
-      applicationName: application.applicationName,
-      sourceBundle: {
-        s3Bucket: bucket.bucketName,
-        s3Key: 'bundle.zip'
-      }
-    });
-    applicationVersion.addDependsOn(application);
     const environment = new CfnEnvironment(this, 'Environment', {
       applicationName: this.stackName,
       solutionStackName: '64bit Amazon Linux 2 v5.1.0 running Node.js 12',
@@ -47,8 +39,6 @@ class MyStack extends Stack {
       ]
     });
     environment.addDependsOn(application);
-    environment.addDependsOn(applicationVersion);
-    
     new CnameRecord(this, 'BackendCNameRecord', {
       domainName: `${this.stackName}.us-east-1.elasticbeanstalk.com`,
       zone: hostedZone,
