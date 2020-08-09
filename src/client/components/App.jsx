@@ -16,7 +16,7 @@ const App = () => {
         </div>
       </div>
       <div className={'footer text-center'}>
-        <span>{`© ${(new Date().getFullYear())} Discoverify\u00A0\u00A0|\u00A0\u00A0Aaron Mamparo\u00A0\u00A0|\u00A0\u00A0`}</span>
+        <span>{`Copyright © ${(new Date().getFullYear())} Discoverify\u00A0\u00A0|\u00A0\u00A0Created by Aaron Mamparo\u00A0\u00A0|\u00A0\u00A0`}</span>
         <a href={'mailto:aaronmamparo@gmail.com?subject=Discoverify Feedback'} target={'_blank'}>{'Feedback?'}</a>
       </div>
     </div>
