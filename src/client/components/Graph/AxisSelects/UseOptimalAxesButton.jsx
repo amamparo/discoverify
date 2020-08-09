@@ -10,7 +10,7 @@ const UseOptimalAxesButton = ({recommendations, suggestAxes, xAxis, yAxis}) => {
   useEffect(() => {
     setOptimalCategories(getOptimalCategories(recommendations));
   }, [recommendations]);
-  const categoriesCanBeOptimized = recommendations.length > 0 && (!optimalCategories.includes(xAxis) || !optimalCategories.includes(yAxis));
+  const categoriesCanBeOptimized = recommendations.length > 0 && _.intersection(optimalCategories, [xAxis, yAxis]).length < 2;
   return (
     <button type='button' className={`use-optimal-axes btn btn-primary btn-block ${categoriesCanBeOptimized ? '' : 'disabled'}`}
             onClick={() => suggestAxes(recommendations)}>
