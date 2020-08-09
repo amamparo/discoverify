@@ -4,5 +4,5 @@ aws elasticbeanstalk create-application-version --application-name discoverify \
 
 aws elasticbeanstalk update-environment \
   --application-name discoverify \
-  --envrionment-name production \
+  --environment-name production \
   --version-label latest
