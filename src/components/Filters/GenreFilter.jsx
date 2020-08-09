@@ -44,7 +44,7 @@ const mapStateToProps = ({genres, genreFilter}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getGenres: () => getGenres(dispatch),
+  getGenres: getGenres(dispatch),
   setGenreFilter: genre => dispatch(setGenreFilter(genre)),
 });
 

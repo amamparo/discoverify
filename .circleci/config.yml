@@ -33,7 +33,7 @@ jobs:
           at: ~/workspace
       - run:
           name: Build
-          command: API_URL=http://discoverify-api.aaronmamparo.com npm run build
+          command: npm run build
       - persist_to_workspace:
           root: ~/workspace
           paths: .
@@ -44,33 +44,15 @@ jobs:
           at: ~/workspace
       - setup_remote_docker
       - run:
-          name: Create Elastic Beanstalk source bundle
-          command: npm run bundle
-      - run:
           name: Install AWS-CDK
           command: npm i -g aws-cdk
       - run:
-          name: Deploy stack
+          name: Deploy
           command: |
             AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
             AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
             AWS_DEFAULT_REGION="us-east-1" \
             cdk deploy --require-approval never --verbose
-      - run:
-          name: Install awscli
-          command: |
-            apt-get -y -qq update
-            apt-get -y -qq install python-dev
-            apt-get -y -qq install python-pip
-            pip install awscli --upgrade
-      - run:
-          name: Update elasticbeanstalk environment
-          command: |
-            chmod +x aws/deployEBApplicationVersion.sh
-            AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
-            AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-            AWS_DEFAULT_REGION="us-east-1" \
-            ./aws/deployEBApplicationVersion.sh
 
 workflows:
   version: 2

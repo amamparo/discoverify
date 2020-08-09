@@ -1,7 +1,7 @@
 import React from 'react';
 import {Cookies} from 'react-cookie';
 import {COOKIE_TOKEN_KEY} from '../../constants';
-import promptUserForAuthorization from './promptUserForAuthorization';
+import promptUserForAuthentication from '../../promptUserForAuthentication';
 
 export default WrappedComponent => {
   return props => {
@@ -10,6 +10,6 @@ export default WrappedComponent => {
     if (code) {
       return <WrappedComponent {...props} spotifyAuthCode={code}/>;
     }
-    return promptUserForAuthorization();
+    return promptUserForAuthentication();
   }
 }

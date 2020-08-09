@@ -114,25 +114,10 @@
   },
   "scripts": {
     "clean": "rimraf .build",
-    "build": "npm run clean && webpack --mode production",
-    "local:build": "API_URL=http://localhost:3001 webpack --mode development -d",
-    "local:server": "PORT=3001 node ./.build/server",
-    "local:client": "ws -d .build/client -s index.html -p 3000",
-    "local:watch": "npm run local:build && (npm run local:server & npm run local:client)",
-    "local": "npm run clean && npm-watch",
+    "build": "npm run clean && webpack --mode production -p",
+    "local": "npm run clean && webpack-dev-server --mode development --watch-content-base --history-api-fallback --verbose -d -w",
     "test": "jest",
-    "bundle": "babel-node aws/buildEBSourceBundle.js",
     "deploy": "babel-node aws/stack.js"
-  },
-  "watch": {
-    "local:watch": {
-      "patterns": [
-        "src",
-        "public"
-      ],
-      "extensions": "js,jsx,scss",
-      "quiet": false
-    }
   },
   "eslintConfig": {
     "extends": "react-app"

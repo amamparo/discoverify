@@ -95,7 +95,7 @@ const mapStateToProps = ({genreFilter, featureFilters, recommendations = [], xAx
 });
 
 const mapDispatchToProps = dispatch => ({
-  getRecommendations: (genre, featureFilters) => getRecommendations(genre, featureFilters)(dispatch),
+  getRecommendations: (genre, featureFilters) => getRecommendations(dispatch)(genre, featureFilters),
   setNowPlaying: (track) => dispatch(setNowPlaying(track))
 });
 

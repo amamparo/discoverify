@@ -6,26 +6,19 @@ import {
   setXAxis,
   setYAxis
 } from './actions';
-import getApiData from '../getApiData';
 import {getOptimalCategories} from '../components/Graph/AxisSelects/axisCategories';
+import apiGetGenres from '../api/getGenres';
+import apiGetRecommendations from '../api/getRecommendations';
 
+export const getGenres = dispatch => async () => {
+  dispatch(requestGenres());
+  dispatch(receiveGenres(await apiGetGenres()));
+}
 
-export const getGenres = dispatch => getApiData({
-  dispatch,
-  requestAction: requestGenres,
-  receiveAction: receiveGenres,
-  endpoint: '/genres'
-});
-
-export const getRecommendations = (genre, featureFilters) => dispatch => getApiData({
-  dispatch,
-  requestAction: requestRecommendations,
-  receiveAction: receiveRecommendations,
-  endpoint: `/recommendations/${genre}`,
-  params: {
-    featureFilters: JSON.stringify(featureFilters)
-  }
-});
+export const getRecommendations = dispatch => async (genre, featureFilters) => {
+  dispatch(requestRecommendations());
+  dispatch(receiveRecommendations(await apiGetRecommendations(genre, featureFilters)));
+}
 
 export const suggestAxes = (recommendations) => dispatch => {
   const optimalCategories = getOptimalCategories(recommendations);

@@ -1,8 +1,7 @@
 import {App, RemovalPolicy, Stack} from '@aws-cdk/core';
 import {Bucket, HttpMethods} from '@aws-cdk/aws-s3';
 import {BucketDeployment, Source} from '@aws-cdk/aws-s3-deployment';
-import {CfnApplication, CfnApplicationVersion, CfnEnvironment} from '@aws-cdk/aws-elasticbeanstalk';
-import {ARecord, CnameRecord, HostedZone} from '@aws-cdk/aws-route53';
+import {ARecord, HostedZone} from '@aws-cdk/aws-route53';
 import {Duration} from '@aws-cdk/core/lib/duration';
 import {RecordTarget} from '@aws-cdk/aws-route53/lib/record-set';
 import {BucketWebsiteTarget} from '@aws-cdk/aws-route53-targets';
@@ -11,46 +10,6 @@ class MyStack extends Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
     const hostedZone = HostedZone.fromLookup(this, 'HostedZone', {domainName: 'aaronmamparo.com'});
-    this.createBackendResources({hostedZone});
-    this.createFrontendResources({hostedZone});
-  }
-  
-  createBackendResources({hostedZone}) {
-    const bucket = new Bucket(this, 'BackendBucket', {
-      bucketName: 'discoverify-api'
-    });
-    new BucketDeployment(this, 'BackendBucketDeployment', {
-      destinationBucket: bucket,
-      sources: [
-        Source.asset('.build/server')
-      ]
-    });
-    const application = new CfnApplication(this, 'Application', {applicationName: this.stackName});
-    const environment = new CfnEnvironment(this, 'Environment', {
-      applicationName: this.stackName,
-      environmentName: 'production',
-      solutionStackName: '64bit Amazon Linux 2 v5.1.0 running Node.js 12',
-      cnamePrefix: this.stackName,
-      removalPolicy: RemovalPolicy.DESTROY,
-      optionSettings: [
-        {
-          namespace: 'aws:autoscaling:launchconfiguration',
-          optionName: 'IamInstanceProfile',
-          value: 'ecsInstanceRole'
-        }
-      ]
-    });
-    environment.addDependsOn(application);
-    new CnameRecord(this, 'BackendCNameRecord', {
-      domainName: `${this.stackName}.us-east-1.elasticbeanstalk.com`,
-      zone: hostedZone,
-      recordName: 'discoverify-api.aaronmamparo.com',
-      ttl: Duration.seconds(60)
-    });
-  }
-  
-  
-  createFrontendResources({hostedZone}) {
     const frontendDomain = 'discoverify.aaronmamparo.com';
     const bucket = new Bucket(this, 'FrontendBucket', {
       bucketName: frontendDomain,
@@ -68,7 +27,7 @@ class MyStack extends Stack {
     new BucketDeployment(this, 'FrontendBucketDeployment', {
       destinationBucket: bucket,
       sources: [
-        Source.asset('.build/client')
+        Source.asset('.build')
       ]
     });
     new ARecord(this, 'FrontendARecord', {
