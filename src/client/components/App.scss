@@ -32,5 +32,12 @@
       margin-top: 2rem;
       color: $gray-600;
     }
+
+    a {
+      color: #1DB954;
+      &:hover {
+        color: #1DB954;
+      }
+    }
   }
 }
