@@ -26,7 +26,7 @@ const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggest
         }
       </div>
       <div className={'row pt-4'}>
-        <div className={'col-sm-6 offset-sm-3'}>
+        <div className={'col-sm-4 offset-sm-4'}>
           <SuggestAxesButton/>
         </div>
       </div>
