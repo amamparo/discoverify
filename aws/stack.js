@@ -16,7 +16,9 @@ class MyStack extends Stack {
   }
   
   createBackendResources({hostedZone}) {
-    const bucket = new Bucket(this, 'BackendBucket');
+    const bucket = new Bucket(this, 'BackendBucket', {
+      bucketName: 'discoverify-api'
+    });
     new BucketDeployment(this, 'BackendBucketDeployment', {
       destinationBucket: bucket,
       sources: [
@@ -26,8 +28,8 @@ class MyStack extends Stack {
     const application = new CfnApplication(this, 'Application', {applicationName: this.stackName});
     const environment = new CfnEnvironment(this, 'Environment', {
       applicationName: this.stackName,
+      environmentName: 'production',
       solutionStackName: '64bit Amazon Linux 2 v5.1.0 running Node.js 12',
-      versionLabel: applicationVersion.ref,
       cnamePrefix: this.stackName,
       removalPolicy: RemovalPolicy.DESTROY,
       optionSettings: [

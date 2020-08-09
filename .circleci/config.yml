@@ -56,6 +56,21 @@ jobs:
             AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
             AWS_DEFAULT_REGION="us-east-1" \
             cdk deploy --require-approval never --verbose
+      - run:
+          name: Install awscli
+          command: |
+            apt-get -y -qq update
+            apt-get -y -qq install python-dev
+            apt-get -y -qq install python-pip
+            pip install awscli --upgrade
+      - run:
+          name: Update elasticbeanstalk environment
+          command: |
+            chmod +x aws/deployEBAplicationVersion.sh
+            AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
+            AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
+            ./aws/deployEBAplicationVersion.sh
+
 workflows:
   version: 2
   checkout-deploy:
