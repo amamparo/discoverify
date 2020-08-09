@@ -1,11 +1,33 @@
-export default ({getTooltip, noDataMessage}) => ({
+import roundTo from 'round-to';
+
+export default ({getTooltip, noDataMessage, onMouseEnter, onMouseLeave}) => ({
   chart: {
-    zoom: {enabled: false},
-    selection: {
-      enabled: false,
-      type: 'xy'
+    zoom: {
+      enabled: true,
+      type: 'xy',
+      autoScaleYaxis: true
     },
-    toolbar: {show: false}
+    selection: {enabled: false},
+    toolbar: {
+      show: true,
+      tools: {
+        reset: true,
+        zoom: true,
+        zoomin: false,
+        zoomout: false,
+        pan: false,
+        download: false,
+        selection: false
+      }
+    },
+    events: {
+      dataPointMouseEnter: onMouseEnter,
+      dataPointMouseLeave: onMouseLeave
+    }
+  },
+  markers: {
+    size: 8,
+    hover: {sizeOffset: 6}
   },
   colors: ['#1DB954'],
   noData: {
@@ -27,7 +49,10 @@ export default ({getTooltip, noDataMessage}) => ({
   legend: {show: false},
   xaxis: {
     type: 'numeric',
-    labels: {show: false},
+    labels: {
+      trim: true,
+      formatter: value => roundTo(value, 2)
+    },
     axisTicks: {
       show: true,
       height: 0,
@@ -35,10 +60,20 @@ export default ({getTooltip, noDataMessage}) => ({
     tickAmount: 5,
     tickPlacement: 'between',
     crosshairs: {show: false},
-    tooltip: {enabled: false}
+    tooltip: {enabled: false},
+    min: 0,
+    max: 1
   },
   yaxis: {
     type: 'numeric',
-    labels: {show: false}
+    labels: {
+      show: true,
+      trim: true,
+      formatter: value => roundTo(value, 2)
+    },
+    tickAmount: 5,
+    tickPlacement: 'between',
+    min: 0,
+    max: 1
   }
 });

@@ -2,6 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import cors from 'cors';
 import getSpotifyData, {SpotifyUnauthorizedError} from './getSpotifyData';
+import _ from 'lodash';
 
 const app = express();
 
@@ -27,7 +28,7 @@ app.get('/recommendations/:genre', async (req, res) => {
       ...JSON.parse(featureFilters || {})
     },
     token
-  })).tracks;
+  })).tracks.filter(({preview_url}) => !_.isNil(preview_url));
   const audioFeatures = (await getSpotifyData({
     endpoint: '/v1/audio-features',
     params: {

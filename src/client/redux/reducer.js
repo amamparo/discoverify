@@ -4,7 +4,7 @@ import {
   REQUEST_GENRES,
   REQUEST_RECOMMENDATIONS,
   SET_FEATURE_FILTER,
-  SET_GENRE_FILTER,
+  SET_GENRE_FILTER, SET_NOW_PLAYING,
   SET_X_AXIS, SET_Y_AXIS,
 } from './actions';
 
@@ -16,7 +16,8 @@ export const initialState = {
   genreFilter: null,
   featureFilters: {},
   xAxis: null,
-  yAxis: null
+  yAxis: null,
+  nowPlaying: null
 };
 
 export default function (state = initialState, {type, payload}) {
@@ -72,6 +73,12 @@ export default function (state = initialState, {type, payload}) {
       return {
         ...state,
         yAxis: payload
+      }
+    }
+    case SET_NOW_PLAYING: {
+      return {
+        ...state,
+        nowPlaying: payload
       }
     }
     default:

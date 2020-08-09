@@ -6,8 +6,10 @@ import _ from 'lodash';
 import {getRecommendations} from '../../../redux/actionCreators';
 import getChartOptions from './getChartOptions';
 import './ApexChart.scss';
+import {setNowPlaying} from '../../../redux/actions';
+import Audio from './Audio';
 
-const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendations, xAxis, yAxis}) => {
+const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendations, xAxis, yAxis, setNowPlaying}) => {
   useEffect(() => {
     if (genreFilter && featureFilters && getRecommendations) {
       getRecommendations(genreFilter, featureFilters);
@@ -41,11 +43,20 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
   const allFiltersSet = genreFilter && featureFilters && xAxis && yAxis;
   const noDataMessage = allFiltersSet ? '' : 'Select a genre, x-axis, and y-axis to begin';
   const data = allFiltersSet ? recommendations.map(r => ({...r, x: r.features[xAxis], y: r.features[yAxis]})) : [];
+  
+  const onMouseEnter = (event, ctx, {dataPointIndex, w: {config: {series}}}) => {
+    setNowPlaying(series[0].data[dataPointIndex]);
+  }
+  const onMouseLeave = () => {
+    setNowPlaying(null);
+  }
+  
   return (<div id={'chart'} ref={chartRef}>
     <ReactApexChart type={'scatter'}
-                    options={getChartOptions({getTooltip, noDataMessage})}
+                    options={getChartOptions({getTooltip, noDataMessage, onMouseEnter, onMouseLeave})}
                     height={chartWidth}
                     series={[{data}]}/>
+    <Audio/>
   </div>);
 };
 
@@ -54,6 +65,7 @@ ApexChart.propTypes = {
   getRecommendations: PropTypes.func,
   featureFilters: PropTypes.object,
   recommendations: PropTypes.arrayOf(PropTypes.object),
+  setNowPlaying: PropTypes.func,
   xAxis: PropTypes.string,
   yAxis: PropTypes.string
 };
@@ -67,7 +79,8 @@ const mapStateToProps = ({genreFilter, featureFilters, recommendations = [], xAx
 });
 
 const mapDispatchToProps = dispatch => ({
-  getRecommendations: (genre, featureFilters) => getRecommendations(genre, featureFilters)(dispatch)
+  getRecommendations: (genre, featureFilters) => getRecommendations(genre, featureFilters)(dispatch),
+  setNowPlaying: (track) => dispatch(setNowPlaying(track))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApexChart);

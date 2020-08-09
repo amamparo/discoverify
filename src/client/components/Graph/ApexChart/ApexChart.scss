@@ -1,8 +1,11 @@
 #chart {
   circle {
     &:hover {
-      cursor: pointer;
+      cursor: default;
     }
+  }
+  .apexcharts-zoom-icon {
+    display: none;
   }
   .track-tooltip {
     display: flex;
