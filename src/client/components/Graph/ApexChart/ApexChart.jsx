@@ -55,7 +55,6 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
     window.open(track.external_urls.spotify, 'spotify');
     setNowPlaying(null);
   }
-  
   return (<div id={'chart'} ref={chartRef}>
     <ReactApexChart type={'scatter'}
                     options={
@@ -71,8 +70,8 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
                         yMax: _.max(data.map(({y}) => y))
                       })
                     }
-                    height={chartWidth}
-                    series={[{data}]}/>
+                    height={Math.max(chartWidth, 400)}
+                    series={data && data.length > 0 ? [{data}] : []}/>
     <Audio/>
   </div>);
 };

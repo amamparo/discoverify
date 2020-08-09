@@ -53,7 +53,6 @@
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.1.0",
-    "postcss-loader": "3.0.0",
     "postcss-normalize": "8.0.1",
     "postcss-preset-env": "6.7.0",
     "postcss-safe-parser": "4.0.1",
@@ -108,13 +107,15 @@
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
+    "autoprefixer": "^9.8.6",
     "babel-loader": "^8.1.0",
-    "babel-watch": "^7.0.0"
+    "babel-watch": "^7.0.0",
+    "postcss-loader": "^3.0.0"
   },
   "scripts": {
     "clean": "rimraf .build",
     "build": "npm run clean && webpack --mode production",
-    "local:build": "API_URL=http://localhost:3001 webpack --mode development",
+    "local:build": "API_URL=http://localhost:3001 webpack --mode development -d",
     "local:server": "PORT=3001 node ./.build/server",
     "local:client": "ws -d .build/client -s index.html -p 3000",
     "local:watch": "npm run local:build && (npm run local:server & npm run local:client)",

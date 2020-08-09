@@ -8,6 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, '.build', 'client'),
     filename: 'bundle.js'
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
@@ -15,6 +16,14 @@ module.exports = {
         use: [
           'style-loader',
           'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                path: 'postcss.config.js'
+              }
+            }
+          },
           'sass-loader'
         ]
       },
