@@ -10,7 +10,7 @@ const AxisSelect = ({label, setAxis, current}) => {
         <div className={'col-sm-3 label'}>{`${label}: `}</div>
         <div className={'col-sm-9'}>
           <select className={'custom-select'} value={current || ''} onChange={({target: {value}}) => setAxis(value)}>
-            <option disabled value={''}>{'------'}</option>
+            <option disabled value={''}>{'--------'}</option>
             {
               Object.keys(axisCategories).map(category => (<option key={category}
                                                                    value={category}>{axisCategories[category]}</option>))

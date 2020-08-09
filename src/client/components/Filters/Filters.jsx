@@ -3,10 +3,16 @@ import GenreFilter from './GenreFilter';
 import FeatureFilters from './FeatureFilters/FeatureFilters';
 
 const Filters = () => {
-  return (<div className={'card p-4'}>
-    <GenreFilter/>
-    <FeatureFilters/>
-  </div>);
+  return (
+    <>
+      <div className={'card p-3'}>
+        <GenreFilter/>
+      </div>
+      <div className={'card p-3 mt-4'}>
+        <FeatureFilters/>
+      </div>
+    </>
+  );
 };
 
 Filters.propTypes = {};

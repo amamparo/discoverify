@@ -16,7 +16,7 @@ const FeatureFilters = ({featureName, featureKey, setFilter}) => {
   }, [minMax]);
   return (<div className={'feature-filter'}>
     <div className={'feature-label'}>
-      <span>{featureName}</span>
+      <strong>{featureName}</strong>
     </div>
     <Range min={defaultMin} max={defaultMax} step={0.01} defaultValue={[defaultMin, defaultMax]} allowCross
            onAfterChange={setMinMax}/>

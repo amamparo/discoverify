@@ -41,7 +41,7 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
   }
   
   const allFiltersSet = genreFilter && featureFilters && xAxis && yAxis;
-  const noDataMessage = allFiltersSet ? '' : 'Select a genre, x-axis, and y-axis to begin';
+  const noDataMessage = allFiltersSet ? '' : 'Select a genre to begin';
   const data = allFiltersSet ? recommendations.map(r => ({...r, x: r.features[xAxis], y: r.features[yAxis]})) : [];
   
   const onMouseEnter = (event, ctx, {dataPointIndex, w: {config: {series}}}) => {

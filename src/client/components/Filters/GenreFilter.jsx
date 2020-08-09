@@ -8,15 +8,22 @@ const GenreFilter = ({genreFilter, genres, getGenres, setGenreFilter}) => {
   useEffect(() => {
     getGenres();
   }, [getGenres]);
-  return (<div className={'form-group'}>
-    <select className={'custom-select'} value={genreFilter || ''}
-            onChange={({target: {value}}) => setGenreFilter(value)}>
-      <option disabled value={''}>{'Choose a genre'}</option>
-      {
-        genres && genres.map(genre => <option key={genre} value={genre}>{genre}</option>)
-      }
-    </select>
-  </div>);
+  return (
+    <>
+      <div className={'mb-1'}>
+        <strong>{'Genre'}</strong>
+      </div>
+      <div className={'form-group m-0'}>
+        <select className={'custom-select'} value={genreFilter || ''}
+                onChange={({target: {value}}) => setGenreFilter(value)}>
+          <option disabled value={''}>{'--------'}</option>
+          {
+            genres && genres.map(genre => <option key={genre} value={genre}>{genre}</option>)
+          }
+        </select>
+      </div>
+    </>
+  );
 };
 
 GenreFilter.propTypes = {

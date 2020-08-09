@@ -1,8 +1,15 @@
 .feature-filter {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
+
   &:last-of-type {
     margin-bottom: 0;
+  }
+  &:first-of-type {
+    margin-top: 0;
+  }
+  .rc-slider {
+    margin: 0.5rem auto;
+    width: 95%;
   }
   .rc-slider-track {
     background-color: #1DB954;
