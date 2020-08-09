@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {suggestAxes} from '../../../redux/actionCreators';
 import {getOptimalCategories} from './axisCategories';
+import './UseOptimalAxesButton.scss';
 
 const UseOptimalAxesButton = ({recommendations, suggestAxes, xAxis, yAxis}) => {
   const [optimalCategories, setOptimalCategories] = useState([]);
@@ -11,7 +12,7 @@ const UseOptimalAxesButton = ({recommendations, suggestAxes, xAxis, yAxis}) => {
   }, [recommendations]);
   const categoriesCanBeOptimized = recommendations.length > 0 && (!optimalCategories.includes(xAxis) || !optimalCategories.includes(yAxis));
   return (
-    <button type='button' className={`btn btn-primary btn-block ${categoriesCanBeOptimized ? '' : 'disabled'}`}
+    <button type='button' className={`use-optimal-axes btn btn-primary btn-block ${categoriesCanBeOptimized ? '' : 'disabled'}`}
             onClick={() => suggestAxes(recommendations)}>
       {'Use Optimal Axes'}
     </button>

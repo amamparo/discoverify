@@ -1,0 +1,12 @@
+@import '../../../bootstrap/bootstrap';
+
+#root {
+  button.reset {
+    background-color: $red;
+    border-color: $red;
+
+    &.disabled:hover {
+      cursor: default;
+    }
+  }
+}
