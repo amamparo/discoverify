@@ -66,10 +66,10 @@ jobs:
       - run:
           name: Update elasticbeanstalk environment
           command: |
-            chmod +x aws/deployEBAplicationVersion.sh
+            chmod +x aws/deployEBApplicationVersion.sh
             AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}" \
             AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}" \
-            ./aws/deployEBAplicationVersion.sh
+            ./aws/deployEBApplicationVersion.sh
 
 workflows:
   version: 2
