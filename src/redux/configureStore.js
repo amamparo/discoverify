@@ -13,7 +13,9 @@ const loadState = () => {
     if (deserializedState && deserializedState.releaseNumber === releaseNumber) {
       return {
         ...deserializedState,
-        nowPlaying: null
+        recommendations: [],
+        nowPlaying: null,
+        isEditingBenchmarkTrack: false
       }
     }
     return deserializedState && deserializedState.releaseNumber === releaseNumber ? deserializedState : undefined;

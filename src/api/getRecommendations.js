@@ -1,13 +1,13 @@
 import wrappedSpotifyApiCall from './wrappedSpotifyApiCall';
 import _ from 'lodash';
 
-export default async (genre, featureFilters) => {
+export default async (benchmarkTrackId, featureFilters) => {
   const tracksFromRecommendations = (await wrappedSpotifyApiCall(
     '/v1/recommendations',
     {
       limit: 100,
       market: 'from_token',
-      seed_genres: genre,
+      seed_tracks: benchmarkTrackId,
       ...featureFilters
     }
   )).tracks;

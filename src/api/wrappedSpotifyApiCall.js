@@ -17,12 +17,8 @@ const fetchSpotifyData = (endpoint, params = {}) => new Promise((resolve, reject
   params,
   headers: {Authorization: `Bearer ${new Cookies().get(COOKIE_TOKEN_KEY)}`}
 }).then(
-  ({data}) => {
-    resolve(data)
-  },
-  ({response}) => {
-    reject(response.status === 401 ? new SpotifyUnauthorizedError() : new Error(response.data))
-  }
+  ({data}) => resolve(data),
+  ({response: {status, data}}) => reject(status === 401 ? new SpotifyUnauthorizedError() : new Error(data))
 ));
 
 export default async (endpoint, params = {}) => {

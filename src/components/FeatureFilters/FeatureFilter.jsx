@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Range} from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import {connect} from 'react-redux';
-import {setFeatureFilter} from '../../../redux/actions';
+import {setFeatureFilter} from '../../redux/actions';
 import PropTypes from 'prop-types';
 import './FeatureFilter.scss';
 

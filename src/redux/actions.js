@@ -1,17 +1,8 @@
-export const REQUEST_GENRES = 'REQUEST_GENRES';
-export const requestGenres = () => ({type: REQUEST_GENRES});
-
-export const RECEIVE_GENRES = 'RECEIVE_GENRES';
-export const receiveGenres = topArtists => ({type: RECEIVE_GENRES, payload: topArtists});
-
 export const REQUEST_RECOMMENDATIONS = 'REQUEST_RECOMMENDATIONS';
 export const requestRecommendations = () => ({type: REQUEST_RECOMMENDATIONS});
 
 export const RECEIVE_RECOMMENDATIONS = 'RECEIVE_RECOMMENDATIONS';
 export const receiveRecommendations = recommendations => ({type: RECEIVE_RECOMMENDATIONS, payload: recommendations});
-
-export const SET_GENRE_FILTER = 'SET_GENRE_FILTER';
-export const setGenreFilter = genre => ({type: SET_GENRE_FILTER, payload: genre});
 
 export const SET_FEATURE_FILTER = 'SET_FEATURE_FILTER';
 export const setFeatureFilter = (key, min, max) => ({
@@ -33,3 +24,12 @@ export const setYAxis = yAxis => ({type: SET_Y_AXIS, payload: yAxis});
 
 export const SET_NOW_PLAYING = 'SET_NOW_PLAYING';
 export const setNowPlaying = track => ({type: SET_NOW_PLAYING, payload: track});
+
+export const SET_BENCHMARK_TRACK = 'SET_BENCHMARK_TRACK';
+export const setBenchmarkTrack = track => ({type: SET_BENCHMARK_TRACK, payload: track});
+
+export const SET_IS_EDITING_BENCHMARK_TRACK = 'SET_IS_EDITING_BENCHMARK_TRACK';
+export const setIsEditingBenchmarkTrack = isEditingBenchmarkTrack => ({
+  type: SET_IS_EDITING_BENCHMARK_TRACK,
+  payload: isEditingBenchmarkTrack
+});

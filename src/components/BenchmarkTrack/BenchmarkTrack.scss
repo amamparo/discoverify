@@ -1,0 +1,58 @@
+.benchmark-track {
+  display: flex;
+  height: 42px;
+  > div {
+    &:first-of-type {
+      padding-left: 1rem;
+    }
+    padding: 0;
+  }
+
+  .edit-button {
+    padding: 0;
+    height: 100%;
+    display: flex;
+    &:hover {
+      cursor: pointer;
+      .inner-container {
+        color: black;
+      }
+    }
+    .inner-container {
+      align-self: center;
+      text-align: center;
+      width: 100%;
+      color: gray;
+    }
+  }
+
+  .benchmark-track-details {
+    background-color: white;
+    width: 100%;
+    display: flex;
+
+    .album-art {
+      position: relative;
+      min-height: 42px;
+      min-width: 42px;
+      img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .details {
+      align-self: center;
+      padding: 0 1rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      > div {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+}

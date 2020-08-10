@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {resetFeatureFilters} from '../../../redux/actions';
+import {resetFeatureFilters} from '../../redux/actions';
 import './ResetFiltersButton.scss';
 
 const SuggestAxesButton = ({resetFeatureFilters, featureFilters}) => {

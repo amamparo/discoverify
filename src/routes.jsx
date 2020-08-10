@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import App from './components/App';
 import NotFound from './components/NotFound';
-import Callback from './components/Authorize/Callback';
+import Callback from './components/Callback';
 import {CALLBACK_PATH} from './constants';
 
 export default () => (

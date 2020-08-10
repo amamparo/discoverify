@@ -9,12 +9,12 @@ import './ApexChart.scss';
 import {setNowPlaying} from '../../../redux/actions';
 import Audio from './Audio';
 
-const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendations, xAxis, yAxis, setNowPlaying}) => {
+const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommendations, xAxis, yAxis, setNowPlaying}) => {
   useEffect(() => {
-    if (genreFilter && featureFilters && getRecommendations) {
-      getRecommendations(genreFilter, featureFilters);
+    if (benchmarkTrack && featureFilters && getRecommendations) {
+      getRecommendations(benchmarkTrack.id, featureFilters);
     }
-  }, [genreFilter, featureFilters, getRecommendations]);
+  }, [benchmarkTrack, featureFilters, getRecommendations]);
   
   const chartRef = useRef(null);
   
@@ -40,9 +40,11 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
     `;
   }
   
-  const allFiltersSet = genreFilter && featureFilters && xAxis && yAxis;
-  const noDataMessage = allFiltersSet ? '' : 'Select a genre to begin';
-  const data = allFiltersSet ? recommendations.map(r => ({...r, x: r.features[xAxis], y: r.features[yAxis]})) : [];
+  const data = benchmarkTrack && featureFilters && xAxis && yAxis ? recommendations.map(r => ({
+    ...r,
+    x: r.features[xAxis],
+    y: r.features[yAxis]
+  })) : [];
   
   const onMouseEnter = (event, ctx, {dataPointIndex, w: {config: {series}}}) => {
     setNowPlaying(series[0].data[dataPointIndex]);
@@ -60,7 +62,6 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
                     options={
                       getChartOptions({
                         getTooltip,
-                        noDataMessage,
                         onMouseEnter,
                         onMouseLeave,
                         onMarkerClick,
@@ -77,7 +78,7 @@ const ApexChart = ({genreFilter, featureFilters, getRecommendations, recommendat
 };
 
 ApexChart.propTypes = {
-  genreFilter: PropTypes.string,
+  benchmarkTrack: PropTypes.object,
   getRecommendations: PropTypes.func,
   featureFilters: PropTypes.object,
   recommendations: PropTypes.arrayOf(PropTypes.object),
@@ -86,8 +87,8 @@ ApexChart.propTypes = {
   yAxis: PropTypes.string
 };
 
-const mapStateToProps = ({genreFilter, featureFilters, recommendations = [], xAxis, yAxis}) => ({
-  genreFilter,
+const mapStateToProps = ({benchmarkTrack, featureFilters, recommendations = [], xAxis, yAxis}) => ({
+  benchmarkTrack,
   featureFilters,
   recommendations,
   xAxis,

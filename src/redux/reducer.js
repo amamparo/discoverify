@@ -2,9 +2,9 @@ import {
   RECEIVE_GENRES,
   RECEIVE_RECOMMENDATIONS,
   REQUEST_GENRES,
-  REQUEST_RECOMMENDATIONS, RESET_FEATURE_FILTERS,
+  REQUEST_RECOMMENDATIONS, RESET_FEATURE_FILTERS, SET_BENCHMARK_TRACK,
   SET_FEATURE_FILTER,
-  SET_GENRE_FILTER, SET_NOW_PLAYING,
+  SET_GENRE_FILTER, SET_IS_EDITING_BENCHMARK_TRACK, SET_NOW_PLAYING,
   SET_X_AXIS, SET_Y_AXIS,
 } from './actions';
 
@@ -17,24 +17,13 @@ export const initialState = {
   featureFilters: {},
   xAxis: null,
   yAxis: null,
-  nowPlaying: null
+  nowPlaying: null,
+  benchmarkTrack: null,
+  isEditingBenchmarkTrack: false
 };
 
 export default function (state = initialState, {type, payload}) {
   switch (type) {
-    case REQUEST_GENRES: {
-      return {
-        ...state,
-        isFetchingGenres: true
-      }
-    }
-    case RECEIVE_GENRES: {
-      return {
-        ...state,
-        genres: state.isFetchingGenres ? payload : state.genres,
-        isFetchingGenres: false
-      }
-    }
     case REQUEST_RECOMMENDATIONS: {
       return {
         ...state,
@@ -46,12 +35,6 @@ export default function (state = initialState, {type, payload}) {
         ...state,
         recommendations: state.isFetchingRecommendations ? payload : state.recommendations,
         isFetchingRecommendations: false
-      }
-    }
-    case SET_GENRE_FILTER: {
-      return {
-        ...state,
-        genreFilter: payload
       }
     }
     case SET_FEATURE_FILTER: {
@@ -85,6 +68,18 @@ export default function (state = initialState, {type, payload}) {
       return {
         ...state,
         nowPlaying: payload
+      }
+    }
+    case SET_BENCHMARK_TRACK: {
+      return {
+        ...state,
+        benchmarkTrack: payload
+      }
+    }
+    case SET_IS_EDITING_BENCHMARK_TRACK: {
+      return {
+        ...state,
+        isEditingBenchmarkTrack: payload
       }
     }
     default:

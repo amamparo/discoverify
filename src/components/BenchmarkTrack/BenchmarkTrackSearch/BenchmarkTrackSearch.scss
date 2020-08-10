@@ -1,0 +1,74 @@
+body.ReactModal__Body--open {
+  overflow: hidden;
+
+  .close-button {
+    color: gray;
+    &:hover {
+      color: black;
+      cursor: pointer;
+    }
+  }
+
+  .search {
+    position: relative;
+    .search-input {
+      padding: 0;
+    }
+    .search-results {
+      position: absolute;
+      z-index: 1;
+      overflow-y: scroll;
+      max-height: 50vh;
+      width: 100%;
+      padding: 0;
+      $search-result-border: 1px solid lightgray;
+      border-bottom: $search-result-border;
+
+      .search-result {
+        background-color: white;
+        padding: 1rem;
+        width: 100%;
+        border: $search-result-border;
+        border-top: none;
+        display: flex;
+
+        &:first-of-type {
+          border-top: $search-result-border;
+        }
+
+        &:last-of-type {
+          border-bottom: none;
+        }
+
+        &:hover {
+          cursor: pointer;
+          background-color: #eee;
+        }
+
+        .album-art {
+          position: relative;
+          min-height: 42px;
+          min-width: 42px;
+          img {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+          }
+        }
+
+        .details {
+          align-self: center;
+          padding: 0 1rem;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          > div {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+          }
+        }
+      }
+    }
+  }
+}
