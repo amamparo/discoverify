@@ -9,7 +9,7 @@ const App = () => {
   return (
     <>
       <div className={'container p-4'}>
-        <div className={'inner-container col-sm-11'}>
+        <div className={'inner-container col-sm-10'}>
           <div className={'row'}>
             <div className={'col-sm-5 pr-0'}>
               <div className={'pb-2'}>

@@ -57,30 +57,32 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
     setNowPlaying(null);
   }
   
-  return (<div id={'chart'} ref={chartRef}>
+  return (<div id={'chart'}>
     <div className={'text-center'}>
       {'Click & drag to zoom'}
     </div>
-    <ReactApexChart type={'scatter'}
-                    options={
-                      getChartOptions({
-                        getTooltip,
-                        onMouseEnter,
-                        onMouseLeave,
-                        onMarkerClick,
-                        xMin: _.min(data.map(({x}) => x)),
-                        xMax: _.max(data.map(({x}) => x)),
-                        yMin: _.min(data.map(({y}) => y)),
-                        yMax: _.max(data.map(({y}) => y))
-                      })
-                    }
-                    height={Math.max(chartWidth, 350)}
-                    series={
-                      data && data.length > 0 ?
-                        [false, true]
-                          .map(isBenchmarkTrack => ({data: data.filter(d => d.isBenchmarkTrack === isBenchmarkTrack)}))
-                        : []
-                    }/>
+    <div ref={chartRef}>
+      <ReactApexChart type={'scatter'}
+                      options={
+                        getChartOptions({
+                          getTooltip,
+                          onMouseEnter,
+                          onMouseLeave,
+                          onMarkerClick,
+                          xMin: _.min(data.map(({x}) => x)),
+                          xMax: _.max(data.map(({x}) => x)),
+                          yMin: _.min(data.map(({y}) => y)),
+                          yMax: _.max(data.map(({y}) => y))
+                        })
+                      }
+                      height={Math.max(chartWidth, 350)}
+                      series={
+                        data && data.length > 0 ?
+                          [false, true]
+                            .map(isBenchmarkTrack => ({data: data.filter(d => d.isBenchmarkTrack === isBenchmarkTrack)}))
+                          : []
+                      }/>
+    </div>
   </div>);
 };
 
