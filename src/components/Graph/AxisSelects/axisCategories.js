@@ -23,14 +23,15 @@ export const getOptimalCategories = (recommendations) => {
       maxJumpDistance = Math.max(maxJumpDistance, x - previousValue);
       previousValue = x;
     });
+    const range = Math.max(featureValues) - Math.min(featureValues);
     return {
       ...accum,
-      [featureKey]: -maxJumpDistance
+      [featureKey]: 1 - (maxJumpDistance / range)
     };
   }, {});
   const featuresSortedByMeanSquaredError = _.sortBy(
     Object.entries(featureOptimalnesses),
-    ([_, optimalness]) => -optimalness
+    ([_, optimalness]) => optimalness
   ).map(([key, _]) => key);
-  return [featuresSortedByMeanSquaredError.shift(), featuresSortedByMeanSquaredError.shift()];
+  return [featuresSortedByMeanSquaredError.pop(), featuresSortedByMeanSquaredError.pop()];
 };
