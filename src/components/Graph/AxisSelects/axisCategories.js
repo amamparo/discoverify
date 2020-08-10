@@ -1,4 +1,3 @@
-import {Stats} from 'fast-stats';
 import _ from 'lodash';
 
 export const axisCategories = {
@@ -15,16 +14,18 @@ export const getOptimalCategories = (recommendations) => {
   if ((recommendations || []).length === 0) {
     return [];
   }
-  const benchmarkTrack = recommendations.find(r => r.isBenchmarkTrack);
   const featureOptimalnesses = Object.keys(axisCategories).reduce((accum, featureKey) => {
     const featureValues = recommendations.map(({features}) => features[featureKey]);
-    const benchmarkValue = benchmarkTrack.features[featureKey];
-    const range = Math.max(featureValues) - Math.min(featureValues);
-    const middleValue = range / 2;
-    const distanceFromBenchmarkValue = Math.abs(benchmarkValue - middleValue);
+    const sortedFeatureValues = featureValues.sort();
+    let maxJumpDistance = 0;
+    let previousValue = sortedFeatureValues[0];
+    sortedFeatureValues.forEach(x => {
+      maxJumpDistance = Math.max(maxJumpDistance, x - previousValue);
+      previousValue = x;
+    });
     return {
       ...accum,
-      [featureKey]: 1 - (distanceFromBenchmarkValue/range)
+      [featureKey]: -maxJumpDistance
     };
   }, {});
   const featuresSortedByMeanSquaredError = _.sortBy(
