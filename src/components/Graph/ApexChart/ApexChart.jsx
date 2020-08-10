@@ -7,7 +7,7 @@ import {getRecommendations} from '../../../redux/actionCreators';
 import getChartOptions from './getChartOptions';
 import './ApexChart.scss';
 import {setNowPlaying} from '../../../redux/actions';
-import Audio from './Audio';
+import Audio from './AudioPlayer';
 
 const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommendations, xAxis, yAxis, setNowPlaying}) => {
   useEffect(() => {
