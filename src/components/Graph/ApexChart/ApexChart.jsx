@@ -18,8 +18,6 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
   
   const chartRef = useRef(null);
   
-  console.error('=============> recommendations: ', recommendations.filter(x => x.isBenchmarkTrack));
-  
   const [chartWidth, setChartWidth] = useState(0);
   
   useEffect(() => {

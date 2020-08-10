@@ -8,15 +8,18 @@ import Routes from './routes';
 import configureStore from './redux/configureStore';
 import {CALLBACK_PATH, COOKIE_TOKEN_KEY} from './constants';
 import promptUserForAuthentication from './promptUserForAuthentication';
+import RollbarWrapper from './components/RollbarWrapper';
 
 (() => {
   if (location.pathname !== CALLBACK_PATH && !new Cookies().get(COOKIE_TOKEN_KEY)) {
     promptUserForAuthentication();
   }
   ReactDOM.render(
-    <Provider store={configureStore()}>
-      <Routes/>
-    </Provider>,
+    <RollbarWrapper>
+      <Provider store={configureStore()}>
+        <Routes/>
+      </Provider>
+    </RollbarWrapper>,
     document.getElementById('root')
   );
   serviceWorker.unregister();

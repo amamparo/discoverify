@@ -33,7 +33,10 @@ jobs:
           at: ~/workspace
       - run:
           name: Build
-          command: npm run build
+          command: |
+            ROLLBAR_ENVIRONMENT="production" \
+            ROLLBAR_TOKEN="${ROLLBAR_TOKEN}" \
+            npm run build
       - persist_to_workspace:
           root: ~/workspace
           paths: .

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
@@ -38,7 +39,9 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.RELEASE_NUMBER': JSON.stringify(Date.now())
+      'process.env.RELEASE_NUMBER': JSON.stringify(Date.now()),
+      'process.env.ROLLBAR_TOKEN': JSON.stringify(process.env.ROLLBAR_TOKEN),
+      'process.env.ROLLBAR_ENVIRONMENT': JSON.stringify(process.env.ROLLBAR_ENVIRONMENT)
     }),
     new CopyPlugin({
       patterns: [
