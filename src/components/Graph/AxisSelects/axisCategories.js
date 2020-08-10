@@ -15,15 +15,21 @@ export const getOptimalCategories = (recommendations) => {
   if ((recommendations || []).length === 0) {
     return [];
   }
-  const featureMeanSquaredErrors = Object.keys(axisCategories).reduce((accum, featureKey) => {
+  const benchmarkTrack = recommendations.find(r => r.isBenchmarkTrack);
+  const featureOptimalnesses = Object.keys(axisCategories).reduce((accum, featureKey) => {
     const featureValues = recommendations.map(({features}) => features[featureKey]);
-    const mean = new Stats().push(...featureValues).gmean();
-    const sumOfMeanSquaredErrors = featureValues.map(x => Math.pow(x - mean, 2)).reduce((sum, curr) => sum + curr, 0);
+    const benchmarkValue = benchmarkTrack.features[featureKey];
+    const range = Math.max(featureValues) - Math.min(featureValues);
+    const middleValue = range / 2;
+    const distanceFromBenchmarkValue = Math.abs(benchmarkValue - middleValue);
     return {
       ...accum,
-      [featureKey]: sumOfMeanSquaredErrors / featureValues.length
+      [featureKey]: 1 - (distanceFromBenchmarkValue/range)
     };
   }, {});
-  const featuresSortedByMeanSquaredError = _.sortBy(Object.entries(featureMeanSquaredErrors), ([_, mse]) => -mse).map(([key, _]) => key);
+  const featuresSortedByMeanSquaredError = _.sortBy(
+    Object.entries(featureOptimalnesses),
+    ([_, optimalness]) => -optimalness
+  ).map(([key, _]) => key);
   return [featuresSortedByMeanSquaredError.shift(), featuresSortedByMeanSquaredError.shift()];
 };
