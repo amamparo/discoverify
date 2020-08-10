@@ -1,39 +1,49 @@
 import wrappedSpotifyApiCall from './wrappedSpotifyApiCall';
 import _ from 'lodash';
 
-export default async (benchmarkTrackId, featureFilters) => {
-  const tracksFromRecommendations = (await wrappedSpotifyApiCall(
+export default async (benchmarkTrack, featureFilters) => {
+  const tracks = (await wrappedSpotifyApiCall(
     '/v1/recommendations',
     {
       limit: 100,
       market: 'from_token',
-      seed_tracks: benchmarkTrackId,
+      seed_tracks: benchmarkTrack.id,
       ...featureFilters
     }
   )).tracks;
-  const recommendationTrackIdToMarketTrackId = tracksFromRecommendations.reduce((accum, recommendationTrack) => {
+  tracks.push(benchmarkTrack);
+  
+  const recommendationTrackIdToMarketTrackId = tracks.reduce((accum, marketTrack) => {
     return {
       ...accum,
-      [recommendationTrack.id]: 'linked_from' in recommendationTrack ?
-        recommendationTrack.linked_from.id :
-        recommendationTrack.id
+      [marketTrack.id]: 'linked_from' in marketTrack ?
+        marketTrack.linked_from.id :
+        marketTrack.id
     }
   }, {});
-  const marketIdChunks = _.chunk(Object.values(recommendationTrackIdToMarketTrackId), 50);
+  let marketIdChunks = _.chunk(Object.values(recommendationTrackIdToMarketTrackId), 50);
   let marketTracks = [];
   for (let i = 0; i < marketIdChunks.length; i++) {
     marketTracks = [
       ...marketTracks,
-      ...(await wrappedSpotifyApiCall('/v1/tracks', {ids: marketIdChunks[0].join(','), market: 'from_token'})).tracks
+      ...(await wrappedSpotifyApiCall('/v1/tracks', {ids: marketIdChunks[i].join(','), market: 'from_token'})).tracks
     ];
   }
-  const audioFeatures = (await wrappedSpotifyApiCall(
-    '/v1/audio-features',
-    {
-      ids: Object.keys(recommendationTrackIdToMarketTrackId).join(',')
-    })).audio_features;
+  marketIdChunks = _.chunk(Object.values(recommendationTrackIdToMarketTrackId), 100);
+  let audioFeatures = [];
+  for (let i = 0; i < marketIdChunks.length; i++) {
+    audioFeatures = [
+      ...audioFeatures,
+      ...(await wrappedSpotifyApiCall(
+        '/v1/audio-features',
+        {
+          ids: marketIdChunks[i].join(',')
+        })).audio_features
+    ]
+  }
   return marketTracks.map(track => ({
     ...track,
+    isBenchmarkTrack: track.id === benchmarkTrack.id,
     features: audioFeatures.find(x => [recommendationTrackIdToMarketTrackId[x.id], x.id].includes(track.id))
   })).filter(({features}) => !_.isNil(features));
 };

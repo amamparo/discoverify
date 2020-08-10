@@ -12,11 +12,13 @@ import Audio from './Audio';
 const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommendations, xAxis, yAxis, setNowPlaying}) => {
   useEffect(() => {
     if (benchmarkTrack && featureFilters && getRecommendations) {
-      getRecommendations(benchmarkTrack.id, featureFilters);
+      getRecommendations(benchmarkTrack, featureFilters);
     }
   }, [benchmarkTrack, featureFilters, getRecommendations]);
   
   const chartRef = useRef(null);
+  
+  console.error('=============> recommendations: ', recommendations.filter(x => x.isBenchmarkTrack));
   
   const [chartWidth, setChartWidth] = useState(0);
   
@@ -24,8 +26,8 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
     setChartWidth(chartRef.current ? chartRef.current.clientWidth : chartWidth);
   }, [chartRef]);
   
-  const getTooltip = ({dataPointIndex, w: {config: {series}}}) => {
-    const track = series[0].data[dataPointIndex];
+  const getTooltip = ({dataPointIndex, seriesIndex, w: {config: {series}}}) => {
+    const track = series[seriesIndex].data[dataPointIndex];
     const {album: {images}} = track;
     return `
       <div class="track-tooltip">
@@ -46,14 +48,14 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
     y: r.features[yAxis]
   })) : [];
   
-  const onMouseEnter = (event, ctx, {dataPointIndex, w: {config: {series}}}) => {
-    setNowPlaying(series[0].data[dataPointIndex]);
+  const onMouseEnter = (event, ctx, {dataPointIndex, seriesIndex, w: {config: {series}}}) => {
+    setNowPlaying(series[seriesIndex].data[dataPointIndex]);
   }
   const onMouseLeave = () => {
     setNowPlaying(null);
   }
-  const onMarkerClick = (event, ctx, {dataPointIndex, w: {config: {series}}}) => {
-    const track = series[0].data[dataPointIndex];
+  const onMarkerClick = (event, ctx, {dataPointIndex, seriesIndex, w: {config: {series}}}) => {
+    const track = series[seriesIndex].data[dataPointIndex];
     window.open(track.external_urls.spotify, 'spotify');
     setNowPlaying(null);
   }
@@ -72,7 +74,12 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
                       })
                     }
                     height={Math.max(chartWidth, 350)}
-                    series={data && data.length > 0 ? [{data}] : []}/>
+                    series={
+                      data && data.length > 0 ?
+                        [false, true]
+                          .map(isBenchmarkTrack => ({data: data.filter(d => d.isBenchmarkTrack === isBenchmarkTrack)}))
+                        : []
+                    }/>
     <Audio/>
   </div>);
 };
@@ -96,7 +103,7 @@ const mapStateToProps = ({benchmarkTrack, featureFilters, recommendations = [], 
 });
 
 const mapDispatchToProps = dispatch => ({
-  getRecommendations: (genre, featureFilters) => getRecommendations(dispatch)(genre, featureFilters),
+  getRecommendations: (benchmarkTrack, featureFilters) => getRecommendations(dispatch)(benchmarkTrack, featureFilters),
   setNowPlaying: (track) => dispatch(setNowPlaying(track))
 });
 

@@ -14,7 +14,7 @@ const BenchmarkTrackDetails = ({benchmarkTrack}) => {
       <div className='album-art'>
         <img src={images.length ? _.orderBy(images, ['height'])[0].url : ''}/>
       </div>
-      <div className='details'>
+      <div className='details pr-0'>
         <div><strong>{benchmarkTrack.name}</strong></div>
         <div>{benchmarkTrack.artists.map(a => a.name).join(', ')}</div>
       </div>
