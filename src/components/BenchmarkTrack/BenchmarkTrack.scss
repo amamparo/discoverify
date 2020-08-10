@@ -1,31 +1,24 @@
+.edit-button {
+  height: 100%;
+  display: flex;
+  &:hover {
+    cursor: pointer;
+    .inner-container {
+      color: black;
+    }
+  }
+  .inner-container {
+    align-self: center;
+    text-align: center;
+    width: 100%;
+    color: gray;
+  }
+}
+
 .benchmark-track {
   display: flex;
   height: 42px;
-  > div {
-    &:first-of-type {
-      padding-left: 1rem;
-    }
-    padding: 0;
-  }
-
-  .edit-button {
-    padding: 0;
-    height: 100%;
-    display: flex;
-    &:hover {
-      cursor: pointer;
-      .inner-container {
-        color: black;
-      }
-    }
-    .inner-container {
-      align-self: center;
-      text-align: center;
-      width: 100%;
-      color: gray;
-    }
-  }
-
+  padding: 0 1rem;
   .benchmark-track-details {
     background-color: white;
     width: 100%;

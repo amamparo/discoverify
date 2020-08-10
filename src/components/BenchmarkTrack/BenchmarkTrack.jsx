@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import BenchmarkTrackSearch from './BenchmarkTrackSearch/BenchmarkTrackSearch';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
@@ -18,17 +18,21 @@ const BenchmarkTrack = ({benchmarkTrack, setIsEditingBenchmarkTrack, isEditingBe
   }, [benchmarkTrack, isEditingBenchmarkTrack])
   return (<>
     <div className={'card'}>
-      <div className={'card-header'}>{'Reference Track'}</div>
-      <div className={'card-body'}>
-        <div className={'row benchmark-track'}>
+      <div className={'card-header'}>
+        <div className={'row'}>
           <div className={'col-sm-10'}>
-            <BenchmarkTrackDetails/>
+            {'Reference Track'}
           </div>
-          <div className={'col-sm-2 edit-button'} onClick={() => setIsEditingBenchmarkTrack(true)}>
+          <div className={'col-sm-2 edit-button pr-0'} onClick={() => setIsEditingBenchmarkTrack(true)}>
             <div className={'inner-container'}>
               <FontAwesomeIcon icon={faEdit}/>
             </div>
           </div>
+        </div>
+      </div>
+      <div className={'card-body'}>
+        <div className={'row benchmark-track'}>
+          <BenchmarkTrackDetails/>
         </div>
       </div>
     </div>
