@@ -1,36 +1,26 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import AxisSelect from './AxisSelect';
 import {setXAxis, setYAxis} from '../../../redux/actions';
 import {suggestAxes} from '../../../redux/actionCreators';
-import SuggestAxesButton from './UseOptimalAxesButton';
 
-const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggestAxes}) => {
-  useEffect(() => {
-    if (!(xAxis && yAxis)) {
-      suggestAxes(recommendations);
-    }
-  }, [recommendations]);
+const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggestAxes, benchmarkTrack}) => {
+  const [currentBenchmarkTrack, setCurrentBenchmarkTrack] = useState(benchmarkTrack);
+  useEffect(() => setCurrentBenchmarkTrack(benchmarkTrack), [benchmarkTrack]);
+  useEffect(() => suggestAxes(recommendations), [currentBenchmarkTrack]);
   return (
-    <>
-      <div className={'row'}>
-        {
-          [['Y Axis', setYAxis, yAxis], ['X Axis', setXAxis, xAxis]].map(([label, setAxis, axis]) => {
-            return (
-              <div key={label} className={'col-sm-6'}>
-                <AxisSelect label={label} setAxis={setAxis} current={axis}/>
-              </div>
-            );
-          })
-        }
-      </div>
-      <div className={'row pt-4'}>
-        <div className={'col-sm-6 offset-sm-3'}>
-          <SuggestAxesButton/>
-        </div>
-      </div>
-    </>
+    <div className={'row'}>
+      {
+        [['Y Axis', setYAxis, yAxis], ['X Axis', setXAxis, xAxis]].map(([label, setAxis, axis]) => {
+          return (
+            <div key={label} className={'col-sm-6'}>
+              <AxisSelect label={label} setAxis={setAxis} current={axis}/>
+            </div>
+          );
+        })
+      }
+    </div>
   );
 };
 
@@ -39,14 +29,16 @@ AxisSelects.propTypes = {
   setYAxis: PropTypes.func,
   xAxis: PropTypes.string,
   yAxis: PropTypes.string,
+  benchmarkTrack: PropTypes.object,
   recommendations: PropTypes.arrayOf(PropTypes.object),
   suggestAxes: PropTypes.func
 };
 
-const mapStateToProps = ({xAxis, yAxis, recommendations}) => ({
+const mapStateToProps = ({xAxis, yAxis, recommendations, benchmarkTrack}) => ({
   xAxis,
   yAxis,
-  recommendations
+  recommendations,
+  benchmarkTrack
 });
 
 const mapDispatchToProps = dispatch => ({
