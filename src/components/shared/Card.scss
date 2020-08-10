@@ -1,0 +1,25 @@
+.card {
+  $paddingx: 1rem;
+  $paddingy: 0.75rem;
+  .card-header {
+    padding: 0;
+    display: flex;
+    .title {
+      flex-grow: 1;
+      padding: $paddingy $paddingx;
+    }
+
+    .button {
+      padding: $paddingy $paddingx;
+      color: gray;
+      &:hover {
+        color: black;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .card-body {
+    padding: $paddingx;
+  }
+}

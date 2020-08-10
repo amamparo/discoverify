@@ -8,6 +8,7 @@ import './BenchmarkTrack.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faEdit} from '@fortawesome/free-regular-svg-icons';
 import {setIsEditingBenchmarkTrack} from '../../redux/actions';
+import Card from '../shared/Card';
 
 
 const BenchmarkTrack = ({benchmarkTrack, setIsEditingBenchmarkTrack, isEditingBenchmarkTrack}) => {
@@ -17,25 +18,12 @@ const BenchmarkTrack = ({benchmarkTrack, setIsEditingBenchmarkTrack, isEditingBe
     }
   }, [benchmarkTrack, isEditingBenchmarkTrack])
   return (<>
-    <div className={'card'}>
-      <div className={'card-header'}>
-        <div className={'row'}>
-          <div className={'col-sm-10'}>
-            {'Reference Track'}
-          </div>
-          <div className={'col-sm-2 edit-button pr-0'} onClick={() => setIsEditingBenchmarkTrack(true)}>
-            <div className={'inner-container'}>
-              <FontAwesomeIcon icon={faEdit}/>
-            </div>
-          </div>
-        </div>
+    <Card title={'Reference Track'} buttonContent={<FontAwesomeIcon icon={faEdit}/>}
+          buttonAction={() => setIsEditingBenchmarkTrack(true)}>
+      <div className={'row benchmark-track'}>
+        <BenchmarkTrackDetails/>
       </div>
-      <div className={'card-body'}>
-        <div className={'row benchmark-track'}>
-          <BenchmarkTrackDetails/>
-        </div>
-      </div>
-    </div>
+    </Card>
     {isEditingBenchmarkTrack ? <BenchmarkTrackSearch/> : null}
   </>);
 };

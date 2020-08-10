@@ -1,20 +1,3 @@
-.edit-button {
-  height: 100%;
-  display: flex;
-  &:hover {
-    cursor: pointer;
-    .inner-container {
-      color: black;
-    }
-  }
-  .inner-container {
-    align-self: center;
-    text-align: center;
-    width: 100%;
-    color: gray;
-  }
-}
-
 .benchmark-track {
   display: flex;
   height: 42px;

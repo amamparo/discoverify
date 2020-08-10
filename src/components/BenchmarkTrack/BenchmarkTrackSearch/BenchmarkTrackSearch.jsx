@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {setIsEditingBenchmarkTrack} from '../../../redux/actions';
 import {faTimes} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import Card from '../../shared/Card';
 
 const modalStyle = {
   top: '35%',
@@ -54,41 +55,27 @@ const BenchmarkTrackSearch = ({benchmarkTrack, close}) => {
     <Modal isOpen style={{content: modalStyle, overlay: modalOverlayStyle}}
            shouldCloseOnOverlayClick shouldCloseOnEsc
            onRequestClose={onRequestClose}>
-      <div className={'card'}>
-        <div className={'card-header'}>
-          <div className={'row pr-2'}>
-            <div className={'col-sm-11'}>
-              {'Choose a Reference Track'}
-            </div>
-            {
-              thereIsAnExistingBenchmarkTrack ? (
-                <div className={'col-sm-1 text-center close-button'} onClick={close}>
-                  <FontAwesomeIcon icon={faTimes}/>
-                </div>
-              ) : null
-            }
+      <Card title={'Choose a Reference Track'}
+            buttonContent={thereIsAnExistingBenchmarkTrack ? <FontAwesomeIcon icon={faTimes}/> : null}
+            buttonAction={close}>
+        <div className={'search'}>
+          <div className={'search-input'}>
+            <input className={'form-control form-control-lg'} type={'text'}
+                   placeholder={'Search by title, artist, or album'}
+                   onChange={e => setQuery(e.target.value)} value={query}
+                   autoFocus={true}/>
           </div>
-        </div>
-        <div className={'card-body'}>
-          <div className={'search'}>
-            <div className={'search-input'}>
-              <input className={'form-control form-control-lg'} type={'text'}
-                     placeholder={'Search by title, artist, or album'}
-                     onChange={e => setQuery(e.target.value)} value={query}
-                     autoFocus={true}/>
+          {searchResults.length > 0 && query !== '' ? (
+            <div className={'search-results'}>
+              {
+                searchResults
+                  .filter(({id}) => id !== (benchmarkTrack || {}).id)
+                  .map(track => <BenchmarkTrackSearchResult key={track.id} track={track}/>)
+              }
             </div>
-            {searchResults.length > 0 && query !== '' ? (
-              <div className={'search-results'}>
-                {
-                  searchResults
-                    .filter(({id}) => id !== (benchmarkTrack || {}).id)
-                    .map(track => <BenchmarkTrackSearchResult key={track.id} track={track}/>)
-                }
-              </div>
-            ) : null}
-          </div>
+          ) : null}
         </div>
-      </div>
+      </Card>
     </Modal>
   );
 };
