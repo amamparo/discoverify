@@ -58,6 +58,9 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
   }
   
   return (<div id={'chart'} ref={chartRef}>
+    <div className={'text-center'}>
+      {'Click & drag to zoom'}
+    </div>
     <ReactApexChart type={'scatter'}
                     options={
                       getChartOptions({
