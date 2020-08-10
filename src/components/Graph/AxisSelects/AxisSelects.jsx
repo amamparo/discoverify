@@ -6,20 +6,15 @@ import {setXAxis, setYAxis} from '../../../redux/actions';
 import {suggestAxes} from '../../../redux/actionCreators';
 
 const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggestAxes, benchmarkTrack}) => {
-  const [currentBenchmarkTrack, setCurrentBenchmarkTrack] = useState(benchmarkTrack);
-  useEffect(() => setCurrentBenchmarkTrack(benchmarkTrack), [benchmarkTrack]);
-  useEffect(() => suggestAxes(recommendations), [currentBenchmarkTrack]);
+  useEffect(() => suggestAxes(recommendations), [recommendations]);
   return (
     <div className={'row'}>
-      {
-        [['Y Axis', setYAxis, yAxis], ['X Axis', setXAxis, xAxis]].map(([label, setAxis, axis]) => {
-          return (
-            <div key={label} className={'col-sm-6'}>
-              <AxisSelect label={label} setAxis={setAxis} current={axis}/>
-            </div>
-          );
-        })
-      }
+      <div className={'col-sm-6 pl-0'}>
+        <AxisSelect label={'Y Axis'} setAxis={setYAxis} current={yAxis}/>
+      </div>
+      <div className={'col-sm-6 pr-0'}>
+        <AxisSelect label={'X Axis'} setAxis={setXAxis} current={xAxis}/>
+      </div>
     </div>
   );
 };

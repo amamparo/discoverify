@@ -39,7 +39,7 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
     `;
   }
   
-  const data = benchmarkTrack && featureFilters && xAxis && yAxis ? recommendations.map(r => ({
+  const data = benchmarkTrack ? recommendations.map(r => ({
     ...r,
     x: r.features[xAxis],
     y: r.features[yAxis]

@@ -1,6 +1,13 @@
 .axis-select {
+  font-size: .8rem;
+
+  select {
+    font-size: .8rem;
+  }
+
   .row {
     display: flex;
+
     .label {
       align-self: center;
       text-align: right;
