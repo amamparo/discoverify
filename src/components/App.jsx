@@ -8,8 +8,8 @@ import Audio from './Graph/ApexChart/AudioPlayer';
 const App = () => {
   return (
     <>
-      <div className={'container-fluid p-4'}>
-        <div className={'inner-container col-sm-8'}>
+      <div className={'container p-4'}>
+        <div className={'inner-container col-sm-11'}>
           <div className={'row'}>
             <div className={'col-sm-5 pr-0'}>
               <div className={'pb-2'}>
