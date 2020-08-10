@@ -7,7 +7,7 @@ import {
 import {getOptimalCategories} from '../components/Graph/AxisSelects/axisCategories';
 import apiGetRecommendations from '../api/getRecommendations';
 
-export const getRecommendations = dispatch => async (benchmarkTrack, featureFilters) => {
+export const getRecommendations = (benchmarkTrack, featureFilters) => async dispatch => {
   dispatch(requestRecommendations());
   dispatch(receiveRecommendations(await apiGetRecommendations(benchmarkTrack, featureFilters)));
 }

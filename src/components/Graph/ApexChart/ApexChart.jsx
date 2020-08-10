@@ -100,7 +100,7 @@ const mapStateToProps = ({benchmarkTrack, featureFilters, recommendations = [], 
 });
 
 const mapDispatchToProps = dispatch => ({
-  getRecommendations: (benchmarkTrack, featureFilters) => getRecommendations(dispatch)(benchmarkTrack, featureFilters),
+  getRecommendations: (benchmarkTrack, featureFilters) => getRecommendations(benchmarkTrack, featureFilters)(dispatch),
   setNowPlaying: (track) => dispatch(setNowPlaying(track))
 });
 
