@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import {Stats} from 'fast-stats';
 
 export const axisCategories = {
   acousticness: 'Acousticness',
@@ -16,12 +17,17 @@ export const getOptimalCategories = (recommendations) => {
   }
   const featureOptimalnesses = Object.keys(axisCategories).reduce((accum, featureKey) => {
     const featureValues = recommendations.map(({features}) => features[featureKey]);
-    const range = Math.max(featureValues) - Math.min(featureValues);
-    const middleValue = Math.max(featureValues) - (range / 2);
-    const maxDistanceFromMiddleValue = Math.max(featureValues.map(x => Math.abs(x - middleValue)));
+    let previousValue = null;
+    const jumps = [];
+    featureValues.sort().forEach(value => {
+      if (previousValue) {
+        jumps.push(value - previousValue);
+      }
+      previousValue = value;
+    });
     return {
       ...accum,
-      [featureKey]: 1 - (maxDistanceFromMiddleValue / range)
+      [featureKey]: 1 - new Stats().push(...jumps).stddev()
     };
   }, {});
   const featuresSortedByMeanSquaredError = _.sortBy(

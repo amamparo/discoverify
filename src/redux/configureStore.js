@@ -15,7 +15,9 @@ const loadState = () => {
         ...deserializedState,
         recommendations: [],
         nowPlaying: null,
-        isEditingBenchmarkTrack: false
+        isEditingBenchmarkTrack: false,
+        xAxis: null,
+        yAxis: null
       }
     }
     return deserializedState && deserializedState.releaseNumber === releaseNumber ? deserializedState : undefined;
