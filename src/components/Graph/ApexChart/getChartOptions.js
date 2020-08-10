@@ -34,7 +34,8 @@ export default ({getTooltip, onMouseEnter, onMouseLeave, onMarkerClick, xMin = 0
   markers: {
     size: 8,
     hover: {sizeOffset: 6},
-    strokeWidth: 0,
+    strokeWidth: 1,
+    strokeColors: '#fff',
     colors
   },
   colors,
