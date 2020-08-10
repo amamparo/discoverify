@@ -1,3 +1,4 @@
+import {Stats} from 'fast-stats';
 import _ from 'lodash';
 
 export const axisCategories = {
@@ -14,13 +15,15 @@ export const getOptimalCategories = (recommendations) => {
   if ((recommendations || []).length === 0) {
     return [];
   }
-  const featureRanges = Object.keys(axisCategories).reduce((accum, featureKey) => {
+  const featureMeanSquaredErrors = Object.keys(axisCategories).reduce((accum, featureKey) => {
     const featureValues = recommendations.map(({features}) => features[featureKey]);
+    const mean = new Stats().push(...featureValues).gmean();
+    const sumOfMeanSquaredErrors = featureValues.map(x => Math.pow(x - mean, 2)).reduce((sum, curr) => sum + curr, 0);
     return {
       ...accum,
-      [featureKey]: Math.abs(Math.max(featureValues) - Math.min(featureValues))
+      [featureKey]: sumOfMeanSquaredErrors / featureValues.length
     };
   }, {});
-  const featuresSortedByMeanSquaredError = _.sortBy(Object.entries(featureRanges), ([_, rng]) => rng).map(([key, _]) => key);
+  const featuresSortedByMeanSquaredError = _.sortBy(Object.entries(featureMeanSquaredErrors), ([_, mse]) => -mse).map(([key, _]) => key);
   return [featuresSortedByMeanSquaredError.shift(), featuresSortedByMeanSquaredError.shift()];
 };
