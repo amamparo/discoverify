@@ -6,9 +6,9 @@ import FeatureFilters from './FeatureFilters/FeatureFilters';
 
 const App = () => {
   return (
-    <div className={'container-fluid p-4'}>
+    <div className={'container p-4'}>
       <div className={'row'}>
-        <div className={'col-sm-3 offset-sm-2 pl-0 pr-2'}>
+        <div className={'col-sm-4 offset-sm-1 pl-0 pr-2'}>
           <div className={'pb-2'}>
             <BenchmarkTrack/>
           </div>
@@ -16,7 +16,7 @@ const App = () => {
             <FeatureFilters/>
           </div>
         </div>
-        <div className={'col-sm-5 pr-0 pl-2'}>
+        <div className={'col-sm-6 pr-0 pl-2'}>
           <Graph/>
         </div>
       </div>
