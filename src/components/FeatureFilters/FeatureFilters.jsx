@@ -40,7 +40,7 @@ const FeatureFilters = () => {
               <FeatureFilter featureName={'Happiness'} featureKey={'valence'}/>
             </div>
           </div>
-          <div className={'row py-1'}>
+          <div className={'row py-1 mt-3'}>
             <div className={'col-sm-8 offset-sm-2'}>
               <ResetFiltersButton/>
             </div>

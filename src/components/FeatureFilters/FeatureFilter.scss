@@ -1,12 +1,9 @@
 
 .feature-filter {
-  margin: 2rem 0;
-  &:first-of-type {
-    margin-top: 0;
-  }
+  font-size: .9rem;
   .rc-slider {
-    margin: 0.5rem auto;
-    width: 90%;
+    margin: 1rem auto;
+    width: 95%;
   }
   .rc-slider-track {
     background-color: #1DB954;
