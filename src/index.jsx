@@ -4,7 +4,7 @@ import {Cookies} from 'react-cookie';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import {Provider} from 'react-redux';
-import Routes from './routes';
+import Routes from './components/routes';
 import configureStore from './redux/configureStore';
 import {CALLBACK_PATH, COOKIE_TOKEN_KEY} from './constants';
 import promptUserForAuthentication from './promptUserForAuthentication';
