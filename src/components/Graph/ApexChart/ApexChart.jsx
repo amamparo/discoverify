@@ -7,7 +7,6 @@ import {getRecommendations} from '../../../redux/actionCreators';
 import getChartOptions from './getChartOptions';
 import './ApexChart.scss';
 import {setNowPlaying} from '../../../redux/actions';
-import Audio from './AudioPlayer';
 
 const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommendations, xAxis, yAxis, setNowPlaying}) => {
   useEffect(() => {
@@ -57,6 +56,7 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
     window.open(track.external_urls.spotify, 'spotify');
     setNowPlaying(null);
   }
+  
   return (<div id={'chart'} ref={chartRef}>
     <ReactApexChart type={'scatter'}
                     options={
@@ -78,7 +78,6 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
                           .map(isBenchmarkTrack => ({data: data.filter(d => d.isBenchmarkTrack === isBenchmarkTrack)}))
                         : []
                     }/>
-    <Audio/>
   </div>);
 };
 

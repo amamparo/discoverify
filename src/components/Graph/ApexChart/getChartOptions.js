@@ -82,4 +82,9 @@ export default ({getTooltip, onMouseEnter, onMouseLeave, onMarkerClick, xMin = 0
     min: yMin,
     max: yMax
   },
+  subtitle: {
+    text: 'Click & drag to zoom',
+    align: 'center',
+    offsetY: 0
+  }
 });

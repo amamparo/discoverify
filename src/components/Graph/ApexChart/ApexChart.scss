@@ -4,8 +4,10 @@
       cursor: pointer;
     }
   }
-  .apexcharts-zoom-icon {
-    display: none;
+  .apexcharts-toolbar {
+    .apexcharts-zoom-icon {
+      display: none;
+    }
   }
   .track-tooltip {
     display: flex;
