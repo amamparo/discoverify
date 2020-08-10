@@ -16,17 +16,12 @@ export const getOptimalCategories = (recommendations) => {
   }
   const featureOptimalnesses = Object.keys(axisCategories).reduce((accum, featureKey) => {
     const featureValues = recommendations.map(({features}) => features[featureKey]);
-    const sortedFeatureValues = featureValues.sort();
-    let maxJumpDistance = 0;
-    let previousValue = sortedFeatureValues[0];
-    sortedFeatureValues.forEach(x => {
-      maxJumpDistance = Math.max(maxJumpDistance, x - previousValue);
-      previousValue = x;
-    });
     const range = Math.max(featureValues) - Math.min(featureValues);
+    const middleValue = Math.max(featureValues) - (range / 2);
+    const maxDistanceFromMiddleValue = Math.max(featureValues.map(x => Math.abs(x - middleValue)));
     return {
       ...accum,
-      [featureKey]: 1 - (maxJumpDistance / range)
+      [featureKey]: 1 - (maxDistanceFromMiddleValue / range)
     };
   }, {});
   const featuresSortedByMeanSquaredError = _.sortBy(
