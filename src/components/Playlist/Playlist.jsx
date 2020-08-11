@@ -33,7 +33,7 @@ const Playlist = ({playlistTracks, setIsExportingPlaylist, isExportingPlaylist})
       }
       {
         playlistTracks && playlistTracks.length > 0 ? (
-          <div className={'export col-sm-12 p-4 text-center'}>
+          <div className={'export col-sm-12 p-3 text-center'}>
             <button type='button' className={`btn btn-primary btn-block`} onClick={() => setIsExportingPlaylist(true)}>
               {'Export to Spotify'}
             </button>
