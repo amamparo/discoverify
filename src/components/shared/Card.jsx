@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Card.scss';
 
-const Card = ({title, children, buttonContent, buttonAction}) => {
+const Card = ({title, children, buttonContent, buttonAction, className}) => {
   return (
-    <div className={'card'}>
+    <div className={`card ${className || ''}`}>
       <div className={'card-header'}>
         <div className={'title'}>{title}</div>
         {
@@ -23,6 +23,7 @@ const Card = ({title, children, buttonContent, buttonAction}) => {
 };
 
 Card.propTypes = {
+  className: PropTypes.string,
   buttonContent: PropTypes.node,
   buttonAction: PropTypes.func,
   children: PropTypes.node.isRequired,

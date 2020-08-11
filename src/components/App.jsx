@@ -4,6 +4,7 @@ import Graph from './Graph/Graph';
 import BenchmarkTrack from './BenchmarkTrack/BenchmarkTrack';
 import FeatureFilters from './FeatureFilters/FeatureFilters';
 import Audio from './Graph/ApexChart/AudioPlayer';
+import Playlist from './Playlist/Playlist';
 
 const App = () => {
   return (
@@ -21,6 +22,11 @@ const App = () => {
             </div>
             <div className={'col-sm-7'}>
               <Graph/>
+            </div>
+          </div>
+          <div className={'row pt-3'}>
+            <div className={'col-sm-12'}>
+              <Playlist/>
             </div>
           </div>
           <div className={'footer text-center pt-4'}>

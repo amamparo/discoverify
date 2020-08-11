@@ -6,9 +6,9 @@ import _ from 'lodash';
 import {getRecommendations} from '../../../redux/actionCreators';
 import getChartOptions from './getChartOptions';
 import './ApexChart.scss';
-import {setNowPlaying} from '../../../redux/actions';
+import {addTrackToPlaylist, setNowPlaying} from '../../../redux/actions';
 
-const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommendations, xAxis, yAxis, setNowPlaying}) => {
+const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommendations, xAxis, yAxis, setNowPlaying, addTrackToPlaylist}) => {
   useEffect(() => {
     if (benchmarkTrack && featureFilters && getRecommendations) {
       getRecommendations(benchmarkTrack, featureFilters);
@@ -53,8 +53,7 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
   }
   const onMarkerClick = (event, ctx, {dataPointIndex, seriesIndex, w: {config: {series}}}) => {
     const track = series[seriesIndex].data[dataPointIndex];
-    window.open(track.external_urls.spotify, 'spotify');
-    setNowPlaying(null);
+    addTrackToPlaylist(track);
   }
   
   return (<div id={'chart'}>
@@ -87,6 +86,7 @@ const ApexChart = ({benchmarkTrack, featureFilters, getRecommendations, recommen
 };
 
 ApexChart.propTypes = {
+  addTrackToPlaylist: PropTypes.func,
   benchmarkTrack: PropTypes.object,
   getRecommendations: PropTypes.func,
   featureFilters: PropTypes.object,
@@ -106,7 +106,8 @@ const mapStateToProps = ({benchmarkTrack, featureFilters, recommendations = [], 
 
 const mapDispatchToProps = dispatch => ({
   getRecommendations: (benchmarkTrack, featureFilters) => getRecommendations(benchmarkTrack, featureFilters)(dispatch),
-  setNowPlaying: (track) => dispatch(setNowPlaying(track))
+  setNowPlaying: track => dispatch(setNowPlaying(track)),
+  addTrackToPlaylist: track => dispatch(addTrackToPlaylist(track))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApexChart);

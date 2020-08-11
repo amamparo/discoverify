@@ -1,0 +1,20 @@
+@import '../../bootstrap/bootstrap';
+
+.card.playlist {
+  .card-body {
+    padding: 0;
+    table {
+      table-layout: fixed;
+      margin-bottom: 0;
+      th {
+        border-top: none;
+        &.album-art {
+          width: calc(42px + 1rem)
+        }
+        &.buttons {
+          width: calc(42px + 1rem)
+        }
+      }
+    }
+  }
+}

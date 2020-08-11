@@ -1,6 +1,7 @@
 import {
+  ADD_TRACK_TO_PLAYLIST,
   RECEIVE_GENRES,
-  RECEIVE_RECOMMENDATIONS,
+  RECEIVE_RECOMMENDATIONS, REMOVE_TRACK_FROM_PLAYLIST,
   REQUEST_GENRES,
   REQUEST_RECOMMENDATIONS, RESET_FEATURE_FILTERS, SET_BENCHMARK_TRACK,
   SET_FEATURE_FILTER,
@@ -19,7 +20,8 @@ export const initialState = {
   yAxis: null,
   nowPlaying: null,
   benchmarkTrack: null,
-  isEditingBenchmarkTrack: false
+  isEditingBenchmarkTrack: false,
+  playlistTracks: []
 };
 
 export default function (state = initialState, {type, payload}) {
@@ -80,6 +82,21 @@ export default function (state = initialState, {type, payload}) {
       return {
         ...state,
         isEditingBenchmarkTrack: payload
+      }
+    }
+    case ADD_TRACK_TO_PLAYLIST: {
+      return {
+        ...state,
+        playlistTracks: _.uniqBy([
+          ...(state.playlistTracks || []),
+          payload
+        ], x => x.id)
+      }
+    }
+    case REMOVE_TRACK_FROM_PLAYLIST: {
+      return {
+        ...state,
+        playlistTracks: (state.playlistTracks || []).filter(x => x.id !== payload)
       }
     }
     default:

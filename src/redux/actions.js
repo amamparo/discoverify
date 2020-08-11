@@ -33,3 +33,9 @@ export const setIsEditingBenchmarkTrack = isEditingBenchmarkTrack => ({
   type: SET_IS_EDITING_BENCHMARK_TRACK,
   payload: isEditingBenchmarkTrack
 });
+
+export const ADD_TRACK_TO_PLAYLIST = 'ADD_TRACK_TO_PLAYLIST';
+export const addTrackToPlaylist = track => ({type: ADD_TRACK_TO_PLAYLIST, payload: track});
+
+export const REMOVE_TRACK_FROM_PLAYLIST = 'REMOVE_TRACK_FROM_PLAYLIST';
+export const removeTrackFromPlaylist = trackId => ({type: REMOVE_TRACK_FROM_PLAYLIST, payload: trackId});
