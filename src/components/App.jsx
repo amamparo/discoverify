@@ -3,7 +3,7 @@ import './App.scss';
 import Graph from './Graph/Graph';
 import BenchmarkTrack from './BenchmarkTrack/BenchmarkTrack';
 import FeatureFilters from './FeatureFilters/FeatureFilters';
-import Audio from './Graph/ApexChart/AudioPlayer';
+import Audio from './AudioPlayer';
 import Playlist from './Playlist/Playlist';
 
 const App = () => {

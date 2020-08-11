@@ -2,6 +2,17 @@
 
 tr.track {
   transition: background-color 0.2s;
+
+  &:hover {
+    td.album-art .play-stop-button {
+      visibility: visible;
+      opacity: 0.75;
+    }
+  }
+  td.album-art .play-stop-button.is-playing {
+    visibility: visible;
+    opacity: 0.75;
+  }
   td {
     vertical-align: middle;
     white-space: nowrap;
@@ -9,9 +20,25 @@ tr.track {
     text-overflow: ellipsis;
     padding: 0.5rem;
     &.album-art {
-      img {
-        max-height: 42px;
-        max-width: 42px;
+      position: relative;
+      vertical-align: initial;
+      &:hover {
+        cursor: pointer;
+      }
+      img, .play-stop-button {
+        position: absolute;
+        height: 42px;
+        width: 42px;
+      }
+      .play-stop-button {
+        display: flex;
+        color: $gray-100;
+        background-color: $gray-900;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s, visibility 0.25s;
       }
     }
     &.buttons {

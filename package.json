@@ -24,6 +24,7 @@
     "bootstrap": "^4.5.2",
     "camelcase": "^5.3.1",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "classnames": "^2.2.6",
     "copy-webpack-plugin": "^6.0.3",
     "cors": "^2.8.5",
     "css-loader": "3.4.2",

@@ -3,16 +3,22 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import './PlaylistTrack.scss';
 import _ from 'lodash';
-import {faTimes} from '@fortawesome/free-solid-svg-icons';
+import {faPlay, faStop, faTimes} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {removeTrackFromPlaylist} from '../../redux/actions';
+import {removeTrackFromPlaylist, setNowPlaying} from '../../redux/actions';
+import classnames from 'classnames';
 
-const Playlist = ({track, removeTrack}) => {
+const Playlist = ({track, removeTrack, nowPlaying, setNowPlaying}) => {
   const {album: {images}} = track;
+  const isNowPlaying = nowPlaying && nowPlaying.id === track.id;
   return (
     <tr key={track.id} className={'track'}>
       <td className={'album-art'}>
         <img src={images.length ? _.orderBy(images, ['height'])[0].url : ''}/>
+        <div className={classnames('play-stop-button', {'is-playing': isNowPlaying})}
+             onClick={() => setNowPlaying(isNowPlaying ? null : track)}>
+          <FontAwesomeIcon icon={isNowPlaying ? faStop : faPlay} size={'lg'}/>
+        </div>
       </td>
       <td className={'title'}>{track.name}</td>
       <td className={'artist'}>{track.artists.map(({name}) => name).join(', ')}</td>
@@ -28,11 +34,18 @@ const Playlist = ({track, removeTrack}) => {
 
 Playlist.propTypes = {
   track: PropTypes.object,
-  removeTrack: PropTypes.func
+  removeTrack: PropTypes.func,
+  nowPlaying: PropTypes.object,
+  setNowPlaying: PropTypes.func
 };
 
+const mapStateToProps = ({nowPlaying}) => ({
+  nowPlaying
+});
+
 const mapDispatchToProps = dispatch => ({
-  removeTrack: trackId => dispatch(removeTrackFromPlaylist(trackId))
+  removeTrack: trackId => dispatch(removeTrackFromPlaylist(trackId)),
+  setNowPlaying: track => dispatch(setNowPlaying(track))
 })
 
-export default connect(null, mapDispatchToProps)(Playlist);
+export default connect(mapStateToProps, mapDispatchToProps)(Playlist);
