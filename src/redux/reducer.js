@@ -1,12 +1,12 @@
 import {
-  ADD_TRACK_TO_PLAYLIST,
+  ADD_TRACK_TO_PLAYLIST, END_SAVING_PLAYLIST,
   RECEIVE_GENRES,
   RECEIVE_RECOMMENDATIONS, REMOVE_TRACK_FROM_PLAYLIST,
   REQUEST_GENRES,
   REQUEST_RECOMMENDATIONS, RESET_FEATURE_FILTERS, SET_BENCHMARK_TRACK,
   SET_FEATURE_FILTER,
-  SET_GENRE_FILTER, SET_IS_EDITING_BENCHMARK_TRACK, SET_NOW_PLAYING,
-  SET_X_AXIS, SET_Y_AXIS,
+  SET_GENRE_FILTER, SET_IS_EDITING_BENCHMARK_TRACK, SET_IS_EXPORTING_PLAYLIST, SET_NOW_PLAYING,
+  SET_X_AXIS, SET_Y_AXIS, START_SAVING_PLAYLIST,
 } from './actions';
 
 export const initialState = {
@@ -21,7 +21,9 @@ export const initialState = {
   nowPlaying: null,
   benchmarkTrack: null,
   isEditingBenchmarkTrack: false,
-  playlistTracks: []
+  playlistTracks: [],
+  isExportingPlaylist: false,
+  isSavingPlaylist: false
 };
 
 export default function (state = initialState, {type, payload}) {
@@ -97,6 +99,24 @@ export default function (state = initialState, {type, payload}) {
       return {
         ...state,
         playlistTracks: (state.playlistTracks || []).filter(x => x.id !== payload)
+      }
+    }
+    case SET_IS_EXPORTING_PLAYLIST: {
+      return {
+        ...state,
+        isExportingPlaylist: payload
+      }
+    }
+    case START_SAVING_PLAYLIST: {
+      return {
+        ...state,
+        isSavingPlaylist: true
+      }
+    }
+    case END_SAVING_PLAYLIST: {
+      return {
+        ...state,
+        isSavingPlaylist: false
       }
     }
     default:

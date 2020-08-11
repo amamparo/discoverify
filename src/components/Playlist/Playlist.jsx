@@ -4,8 +4,10 @@ import Card from '../shared/Card';
 import {connect} from 'react-redux';
 import './Playlist.scss';
 import PlaylistTrack from './PlaylistTrack';
+import {setIsExportingPlaylist} from '../../redux/actions';
+import ExportPlaylist from './ExportPlaylist';
 
-const Playlist = ({playlistTracks}) => {
+const Playlist = ({playlistTracks, setIsExportingPlaylist, isExportingPlaylist}) => {
   return (
     <Card title={'Playlist'} className={'playlist'}>
       <table className={'table table-hover'}>
@@ -29,16 +31,35 @@ const Playlist = ({playlistTracks}) => {
           </div>
         ) : null
       }
+      {
+        playlistTracks && playlistTracks.length > 0 ? (
+          <div className={'export col-sm-12 p-4 text-center'}>
+            <button type='button' className={`btn btn-primary btn-block`} onClick={() => setIsExportingPlaylist(true)}>
+              {'Export to Spotify'}
+            </button>
+          </div>
+        ) : null
+      }
+      {
+        isExportingPlaylist ? <ExportPlaylist/> : null
+      }
     </Card>
   );
 };
 
 Playlist.propTypes = {
-  playlistTracks: PropTypes.arrayOf(PropTypes.object)
+  playlistTracks: PropTypes.arrayOf(PropTypes.object),
+  setIsExportingPlaylist: PropTypes.func,
+  isExportingPlaylist: PropTypes.bool
 };
 
-const mapStateToProps = ({playlistTracks}) => ({
-  playlistTracks
+const mapStateToProps = ({playlistTracks, isExportingPlaylist}) => ({
+  playlistTracks,
+  isExportingPlaylist
 });
 
-export default connect(mapStateToProps)(Playlist);
+const mapDispatchToProps = dispatch => ({
+  setIsExportingPlaylist: isExportingPlaylist => dispatch(setIsExportingPlaylist(isExportingPlaylist))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Playlist);

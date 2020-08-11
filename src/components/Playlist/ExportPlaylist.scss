@@ -1,0 +1,23 @@
+body.ReactModal__Body--open {
+  overflow: hidden;
+  .export-playlist {
+    .close-button {
+      color: gray;
+
+      &:hover {
+        color: black;
+        cursor: pointer;
+      }
+    }
+
+    button {
+      width: auto;
+      margin: 0 auto;
+      background-color: #1DB954;
+      border-color: #1DB954;
+      &.disabled:hover {
+        cursor: default;
+      }
+    }
+  }
+}

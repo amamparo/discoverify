@@ -15,6 +15,15 @@
           width: calc(42px + 1rem)
         }
       }
+      border-bottom: 1px solid #dee2e6;
+    }
+    .export {
+      button {
+        width: auto;
+        margin: 0 auto;
+        background-color: #1DB954;
+        border-color: #1DB954;
+      }
     }
   }
 }

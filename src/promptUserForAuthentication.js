@@ -4,7 +4,7 @@ export default () => {
   window.location.href = [
     'https://accounts.spotify.com/authorize?response_type=token',
     `&client_id=${SPOTIFY_CLIENT_ID}`,
-    `&scope=${encodeURIComponent('user-read-private')}`,
+    `&scope=${encodeURIComponent('user-read-private user-read-email playlist-modify-public playlist-modify-private')}`,
     `&redirect_uri=${encodeURIComponent(`${window.location.origin}${CALLBACK_PATH}`)}`,
     `&show_dialog=true`
   ].join('');

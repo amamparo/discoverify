@@ -39,3 +39,15 @@ export const addTrackToPlaylist = track => ({type: ADD_TRACK_TO_PLAYLIST, payloa
 
 export const REMOVE_TRACK_FROM_PLAYLIST = 'REMOVE_TRACK_FROM_PLAYLIST';
 export const removeTrackFromPlaylist = trackId => ({type: REMOVE_TRACK_FROM_PLAYLIST, payload: trackId});
+
+export const SET_IS_EXPORTING_PLAYLIST = 'SET_IS_EXPORTING_PLAYLIST';
+export const setIsExportingPlaylist = isExportingPlaylist => ({
+  type: SET_IS_EXPORTING_PLAYLIST,
+  payload: isExportingPlaylist
+});
+
+export const START_SAVING_PLAYLIST = 'START_SAVING_PLAYLIST';
+export const startSavingPlaylist = () => ({type: START_SAVING_PLAYLIST});
+
+export const END_SAVING_PLAYLIST = 'END_SAVING_PLAYLIST';
+export const endSavingPlaylist = () => ({type: END_SAVING_PLAYLIST});

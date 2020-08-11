@@ -10,19 +10,20 @@ class SpotifyUnauthorizedError extends Error {
   }
 }
 
-const fetchSpotifyData = (endpoint, params = {}) => new Promise((resolve, reject) => axios({
-  method: 'get',
+const fetchSpotifyData = (method, endpoint, params = {}, data = null) => new Promise((resolve, reject) => axios({
+  method,
   url: `https://api.spotify.com${endpoint}`,
   params,
-  headers: {Authorization: `Bearer ${new Cookies().get(COOKIE_TOKEN_KEY)}`}
+  headers: {Authorization: `Bearer ${new Cookies().get(COOKIE_TOKEN_KEY)}`},
+  data
 }).then(
   ({data}) => resolve(data),
   ({response: {status, data}}) => reject([401, 403].includes(status) ? new SpotifyUnauthorizedError() : new Error(data))
 ));
 
-export default async (endpoint, params = {}) => {
+const request = async (method, endpoint, params = {}, data = null) => {
   try {
-    return await fetchSpotifyData(endpoint, params);
+    return await fetchSpotifyData(method, endpoint, params, data);
   } catch (err) {
     if (err.constructor === SpotifyUnauthorizedError) {
       return promptForUserAuthentication();
@@ -30,3 +31,11 @@ export default async (endpoint, params = {}) => {
     throw err;
   }
 };
+
+export default (endpoint, params = {}) => {
+  return request('get', endpoint, params);
+};
+
+export const post = (endpoint, data = {}) => {
+  return request('post', endpoint, {}, data);
+}
