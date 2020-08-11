@@ -1,28 +1,34 @@
 import {applyMiddleware, createStore} from 'redux';
 import thunk from 'redux-thunk';
 import {composeWithDevTools} from 'redux-devtools-extension';
-import reducer from './reducer';
+import reducer, {initialState} from './reducer';
 import _ from 'lodash';
 
 const releaseNumber = process.env.RELEASE_NUMBER;
+
+const storeFieldsToResetToDefaultValueOnPageLoad = ['featureFilters', 'recommendations', 'nowPlaying', 'isEditingBenchmarkTrack', 'xAxis', 'yAxis', 'isExportingPlaylist', 'isSavingPlaylist'];
+
+const storeFieldsToPersistAcrossReleases = ['playlistTracks', 'benchmarkTrack'];
 
 const loadState = () => {
   try {
     const serializedState = localStorage.getItem('state');
     const deserializedState = serializedState ? JSON.parse(serializedState) : undefined;
-    if (deserializedState && deserializedState.releaseNumber === releaseNumber) {
-      return {
-        ...deserializedState,
-        recommendations: [],
-        nowPlaying: null,
-        isEditingBenchmarkTrack: false,
-        xAxis: null,
-        yAxis: null,
-        isExportingPlaylist: false,
-        isSavingPlaylist: false
-      }
+    if (!deserializedState) {
+      return;
     }
-    return deserializedState && deserializedState.releaseNumber === releaseNumber ? deserializedState : undefined;
+    const releaseNumberHasChanged = deserializedState.releaseNumber !== releaseNumber;
+    return {
+      ...(releaseNumberHasChanged ? {} : deserializedState),
+      ...storeFieldsToPersistAcrossReleases.reduce((persistedState, fieldKey) => ({
+        ...persistedState,
+        [fieldKey]: deserializedState[fieldKey]
+      }), {}),
+      ...storeFieldsToResetToDefaultValueOnPageLoad.reduce((defaultedState, fieldKey) => ({
+        ...defaultedState,
+        [fieldKey]: initialState[fieldKey]
+      }), {})
+    };
   } catch {
     console.info('Couldn\'t read pre-loaded state from local storage');
   }
