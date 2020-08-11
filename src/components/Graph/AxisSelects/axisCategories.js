@@ -17,22 +17,19 @@ export const getOptimalCategories = (recommendations) => {
   }
   const featureOptimalnesses = Object.keys(axisCategories).reduce((accum, featureKey) => {
     const featureValues = recommendations.map(({features}) => features[featureKey]);
-    let previousValue = null;
-    const jumps = [];
-    featureValues.sort().forEach(value => {
-      if (previousValue) {
-        jumps.push(value - previousValue);
-      }
-      previousValue = value;
-    });
+    const stats = new Stats().push(featureValues);
+    const mean = stats.amean();
+    const stddev = stats.stddev();
+    const zScores = featureValues.map(x => Math.abs(x - mean) / stddev);
+    const maxZScore = Math.max(...zScores);
     return {
       ...accum,
-      [featureKey]: 1 - new Stats().push(...jumps).stddev()
+      [featureKey]: -maxZScore
     };
   }, {});
-  const featuresSortedByMeanSquaredError = _.sortBy(
+  const featuresSortedByOptimalness = _.sortBy(
     Object.entries(featureOptimalnesses),
     ([_, optimalness]) => optimalness
-  ).map(([key, _]) => key);
-  return [featuresSortedByMeanSquaredError.pop(), featuresSortedByMeanSquaredError.pop()];
+  ).map(([key, _]) => key).reverse();
+  return featuresSortedByOptimalness.slice(0, 2);
 };

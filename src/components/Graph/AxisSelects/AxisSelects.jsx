@@ -5,7 +5,7 @@ import AxisSelect from './AxisSelect';
 import {setXAxis, setYAxis} from '../../../redux/actions';
 import {suggestAxes} from '../../../redux/actionCreators';
 
-const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggestAxes, benchmarkTrack}) => {
+const AxisSelects = ({xAxis, yAxis, setXAxis, setYAxis, recommendations, suggestAxes}) => {
   useEffect(() => suggestAxes(recommendations), [recommendations]);
   return (
     <div className={'row'}>
@@ -24,16 +24,14 @@ AxisSelects.propTypes = {
   setYAxis: PropTypes.func,
   xAxis: PropTypes.string,
   yAxis: PropTypes.string,
-  benchmarkTrack: PropTypes.object,
   recommendations: PropTypes.arrayOf(PropTypes.object),
   suggestAxes: PropTypes.func
 };
 
-const mapStateToProps = ({xAxis, yAxis, recommendations, benchmarkTrack}) => ({
+const mapStateToProps = ({xAxis, yAxis, recommendations}) => ({
   xAxis,
   yAxis,
-  recommendations,
-  benchmarkTrack
+  recommendations
 });
 
 const mapDispatchToProps = dispatch => ({

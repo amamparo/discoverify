@@ -6,7 +6,7 @@ import {
   REQUEST_RECOMMENDATIONS, RESET_FEATURE_FILTERS, SET_BENCHMARK_TRACK,
   SET_FEATURE_FILTER,
   SET_GENRE_FILTER, SET_IS_EDITING_BENCHMARK_TRACK, SET_IS_EXPORTING_PLAYLIST, SET_NOW_PLAYING,
-  SET_X_AXIS, SET_Y_AXIS, START_SAVING_PLAYLIST,
+  SET_X_AXIS, SET_XY_AXIS, SET_Y_AXIS, START_SAVING_PLAYLIST,
 } from './actions';
 
 export const initialState = {
@@ -66,6 +66,14 @@ export default function (state = initialState, {type, payload}) {
       return {
         ...state,
         yAxis: payload
+      }
+    }
+    case SET_XY_AXIS: {
+      const [xAxis, yAxis] = payload;
+      return {
+        ...state,
+        xAxis,
+        yAxis
       }
     }
     case SET_NOW_PLAYING: {

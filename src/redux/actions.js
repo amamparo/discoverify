@@ -22,6 +22,9 @@ export const setXAxis = xAxis => ({type: SET_X_AXIS, payload: xAxis});
 export const SET_Y_AXIS = 'SET_Y_AXIS';
 export const setYAxis = yAxis => ({type: SET_Y_AXIS, payload: yAxis});
 
+export const SET_XY_AXIS = 'SET_XY_AXIS';
+export const setXYAxis = (xAxis, yAxis) => ({type: SET_XY_AXIS, payload: [xAxis, yAxis]});
+
 export const SET_NOW_PLAYING = 'SET_NOW_PLAYING';
 export const setNowPlaying = track => ({type: SET_NOW_PLAYING, payload: track});
 

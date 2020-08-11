@@ -2,8 +2,8 @@ import {
   endSavingPlaylist,
   receiveRecommendations,
   requestRecommendations, setIsExportingPlaylist,
-  setXAxis,
-  setYAxis, startSavingPlaylist
+  setXYAxis,
+  startSavingPlaylist
 } from './actions';
 import {getOptimalCategories} from '../components/Graph/AxisSelects/axisCategories';
 import apiGetRecommendations from '../api/getRecommendations';
@@ -26,6 +26,5 @@ export const suggestAxes = (recommendations) => dispatch => {
   if (optimalCategories.length < 2) {
     return;
   }
-  dispatch(setXAxis(optimalCategories[0]));
-  dispatch(setYAxis(optimalCategories[1]));
+  dispatch(setXYAxis(optimalCategories[0], optimalCategories[1]));
 };
